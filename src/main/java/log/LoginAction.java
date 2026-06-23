@@ -1,7 +1,7 @@
 package log;
 
-import bean.Teacher;
-import dao.TeacherDAO;
+//import bean.Teacher;
+//import dao.TeacherDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -22,8 +22,8 @@ public class LoginAction extends Action {
         String password = request.getParameter("password");
 
         // DAOを使ってDBからユーザー検索（認証処理）
-        TeacherDAO dao = new TeacherDAO();
-        Teacher teacher = dao.search(teacher_id, password);
+        //TeacherDAO dao = new TeacherDAO();
+        //Teacher teacher = dao.search(teacher_id, password);
 
         // ユーザーが見つかった場合（ログイン成功）
         if (teacher != null) {
