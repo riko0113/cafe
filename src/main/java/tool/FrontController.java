@@ -21,21 +21,20 @@ public class FrontController extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try {
-            // ③ URLパスを取得（例：/Search.action）
+           
             String path = request.getServletPath().substring(1);
 
-            // ④ クラス名に変換
-            // 例：Search.action → SearchAction
+           
             String name = path.replace(".a", "A").replace('/', '.');
 
-            // ⑤ クラスを生成（リフレクション）
+            
             Action action = (Action)Class.forName(name)
                 .getDeclaredConstructor().newInstance();
 
-            // ⑥ 処理を実行（Actionのexecute）
+           
             String url = action.execute(request, response);
 
-            // ⑦ JSPへフォワード
+            
             request.getRequestDispatcher(url)
                 .forward(request, response);
 
