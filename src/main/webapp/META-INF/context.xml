@@ -1,10 +1,10 @@
 <Context reloadable="true">
     <Resource
-        name="jdbc/system"
+        name="jdbc/cafe"
         auth="Container"
         type="javax.sql.DataSource"
         driverClassName="org.postgresql.Driver"
-        url="jdbc:postgresql://localhost:5432/system"
+        url="jdbc:postgresql://localhost:5432/cafe"
         username="postgres"
         password="post"
     />
