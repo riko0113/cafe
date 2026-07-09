@@ -1,5 +1,30 @@
 // カートの中身を記憶する変数
 let cart = {};
+let currentTaxRate = 1.08;
+
+// 税率切り替え関数
+function switchTaxType(element, taxRate) {
+    currentTaxRate = taxRate;
+    
+    // 1. 税率ボタンの見た目を切り替える
+    document.querySelectorAll('.tax-type-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    element.classList.add('active');
+
+    // 2. メニューに並んでいる商品の価格表示をすべて新税率で書き換える
+    document.querySelectorAll('.product-price').forEach(priceSpan => {
+        // HTMLに隠しておいた税抜価格を読み出す
+        const rawPrice = Number(priceSpan.getAttribute('data-raw-price'));
+        // 新しい税率で税込価格を計算（四捨五入）
+        const newExcludingPrice = Math.round(rawPrice * currentTaxRate);
+        // 画面の数値を書き換え
+        priceSpan.innerText = newExcludingPrice;
+    });
+
+    // 3. カート（注文リスト）の計算もリフレッシュ
+    renderCart();
+}
 
 // 【機能1】ジャンルの切り替え
 function switchGenre(genreId) {
@@ -54,53 +79,68 @@ function changeQuantity(productId, amount) {
 // 【機能4】注文リスト（カート）の見た目を最新にする
 function renderCart() {
     const cartList = document.getElementById('cartList');
-    const totalPriceSpan = document.getElementById('totalPrice');
+    const excludingTaxPriceSpan = document.getElementById('excludingTaxPrice');
+    const includingTaxPriceSpan = document.getElementById('includingTaxPrice');
     
-    // 一度リストを空っぽにする
     cartList.innerHTML = '';
-    let total = 0;
+    let totalExcludingTax = 0;
 
     const keys = Object.keys(cart);
     
-    // 何もないときはメッセージを出して終了
     if (keys.length === 0) {
         cartList.innerHTML = '<p id="emptyMessage">商品が選択されていません</p>';
-        totalPriceSpan.innerText = '0';
+        excludingTaxPriceSpan.innerText = '0';
+        includingTaxPriceSpan.innerText = '0';
         return;
     }
 
-    // カートに入っている商品分、文字とボタンを作る
     keys.forEach(productId => {
         const item = cart[productId];
-        const itemTotalPrice = item.price * item.quantity;
-        total += itemTotalPrice;
+        const itemTotalExcludingTax = item.price * item.quantity;
+        totalExcludingTax += itemTotalExcludingTax;
+
+        const itemTotalIncludingTax = Math.round(itemTotalExcludingTax * currentTaxRate);
 
         const itemDiv = document.createElement('div');
         itemDiv.innerHTML = `
-            <span>${item.name} (${item.price}円)</span>
+            <span>${item.name}</span>
             <button onclick="changeQuantity('${productId}', -1)">ー</button>
             <span> ${item.quantity} 個 </span>
             <button onclick="changeQuantity('${productId}', 1)">＋</button>
-            <span>小計: ${itemTotalPrice}円</span>
+            <span>${itemTotalIncludingTax}円</span>
         `;
         cartList.appendChild(itemDiv);
     });
 
-    // 合計金額を書き換える
-    totalPriceSpan.innerText = total;
+    let totalIncludingTax = Math.round(totalExcludingTax * currentTaxRate);
+
+    excludingTaxPriceSpan.innerText = totalExcludingTax;
+    includingTaxPriceSpan.innerText = totalIncludingTax;
 }
 
-// 確定ボタンを押したとき
 function submitOrder() {
     if (Object.keys(cart).length === 0) {
         alert('カートが空です');
         return;
     }
-    alert('注文を確定しました！');
-    console.log(cart);
+
+    const totalExcluding = Number(document.getElementById('excludingTaxPrice').innerText);
+    const totalIncluding = Number(document.getElementById('includingTaxPrice').innerText);
+    
+    const isTakeOutBoolean = (currentTaxRate === 1.08);
+
+    const sendData = {
+        items: cart,
+        taxRate: currentTaxRate, 
+        isTakeOut: isTakeOutBoolean,
+        totalExcludingTax: totalExcluding,
+        totalIncludingTax: totalIncluding
+    };
+
+    document.getElementById('cartDataInput').value = JSON.stringify(sendData);
+    document.getElementById('hiddenOrderForm').submit();
 }
 
-// 画面が開いた瞬間の初期動き（最初のジャンルを表示）
 window.onload = function() {
     const activeTab = document.querySelector('.tab.active');
     if (activeTab) {
