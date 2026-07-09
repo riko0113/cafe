@@ -8,8 +8,17 @@
 <title>売上管理</title>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/sales/servlet/SalesSummary.action">
+			売上詳細
+	</a>
 	<a href="${pageContext.request.contextPath}/sales/servlet/ProductSalesSummary.action">
-			商品売上集計
+			商品売上合計
+	</a>
+	<a href="${pageContext.request.contextPath}/sales/servlet/ProfitManagement.action">
+			損益管理
+	</a>
+	<a href="${pageContext.request.contextPath}/sales/servlet/DailySalesRegisterAction.action">
+			日売上登録
 	</a>
 </body>
 </html>
