@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>売上管理</title>
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/sales/ProductSalesSummary.action">
+	<a href="${pageContext.request.contextPath}/sales/servlet/ProductSalesSummary.action">
 			商品売上集計
 	</a>
 </body>
