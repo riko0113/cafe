@@ -25,20 +25,21 @@ public class insert2 extends HttpServlet {
 		Page.header(out);
 		try {
 			InitialContext ic=new InitialContext();
-			DataSource ds=(DataSource)ic.lookup("java:comp/env/jdbc/book");
+			DataSource ds=(DataSource)ic.lookup("java:comp/env/jdbc/cafe");
 			Connection con=ds.getConnection();
 			
-		    int product_id=Integer.parseInt("product_id");
+		    int product_id=Integer.parseInt(request.getParameter("product_id"));
 			String product_name=request.getParameter("product_name");
 			String genre_id=request.getParameter("genre_id");
 			int price=Integer.parseInt(request.getParameter("price"));
 			
 			PreparedStatement st=con.prepareStatement(
-				"insert into test(product_id, product_name, genre_id, price) values(?, ?, ?, ?)");
+				"insert into product(product_id, product_name, genre_id, price, is_deleted) values(?, ?, ?, ?, ?)");
 			st.setInt(1, product_id);
 			st.setString(2, product_name);
 			st.setString(3, genre_id);
 			st.setInt(4, price);
+			st.setBoolean(5, false);
 			int line=st.executeUpdate();
 			
 			if (line>0) {

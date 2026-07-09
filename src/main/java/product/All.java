@@ -35,7 +35,7 @@ public class All extends HttpServlet {
             InitialContext ic = new InitialContext();
 
             DataSource ds = (DataSource) ic.lookup(
-                "java:/comp/env/jdbc/book");
+                "java:/comp/env/jdbc/cafe");
 
             Connection con = ds.getConnection();
 
@@ -50,7 +50,7 @@ public class All extends HttpServlet {
             out.println("    <th style='padding: 10px;'>商品名</th>");
             out.println("    <th style='padding: 10px;'>ジャンルID</th>");
             out.println("    <th style='padding: 10px;'>価格</th>");
-            out.println("    <th style='padding: 10px;'>操作</th>");
+            out.println("    <th style='padding: 10px;'>削除フラグ</th>");
             out.println("</tr>");
 
             while (rs.next()) {
@@ -60,9 +60,10 @@ public class All extends HttpServlet {
 
                 out.println("<tr>");
                 out.println("    <td style='padding: 8px;'>" + rs.getInt("product_id") + "</td>");
-                out.println("    <td style='padding: 8px;'>" + rs.getInt("product_name") + "</td>");
+                out.println("    <td style='padding: 8px;'>" + rs.getString("product_name") + "</td>");
                 out.println("    <td style='padding: 8px;'>" + rs.getInt("genre_id") + "</td>");
                 out.println("    <td style='padding: 8px;'>" + rs.getInt("price") + "</td>");
+                out.println("    <td style='padding: 8px;'>" + rs.getBoolean("is_deleted") + "</td>");
                 
                 out.println("    <td style='padding: 8px;'>");
                 out.println("    <form action='DeleteServlet' method='post' style='margin:0;'>");
