@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>登録完了</title>
 </head>
 <body>
-  <h1>商品一覧</h1>
+  <h1>データを登録しました</h1>
+  
+  <p><a href="../product/insert2.jsp">次の入力画面へ</a>
 </body>
 </html>
