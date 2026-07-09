@@ -25,17 +25,20 @@ public class insert extends HttpServlet {
 		Page.header(out);
 		try {
 			InitialContext ic=new InitialContext();
-			DataSource ds=(DataSource)ic.lookup("java:comp/env/jdbc/book");
+			DataSource ds=(DataSource)ic.lookup("java:comp/env/jdbc/cafe");
 			Connection con=ds.getConnection();
 			
-			String genre_id=request.getParameter(request.getParameter("genre_id"));
+			String genre_id=request.getParameter(("genre_id"));
 			String genre_name=request.getParameter("genre_name");
 			
 			PreparedStatement st=con.prepareStatement(
-				"insert into subject(genre_id, genre_name) values(?, ?)");
+				"insert into genre(genre_id, genre_name, is_deleted) values(?, ?, ?)");
 			st.setString(1, genre_id);
 			st.setString(2, genre_name);
+			st.setBoolean(3, false);
 			int line=st.executeUpdate();
+			
+			con.commit();
 			
 			if (line>0) {
 				out.println("追加しました");

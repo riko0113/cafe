@@ -9,6 +9,6 @@
 <body>
   <h1>データを登録しました</h1>
   
-  <p><a href="../product/insert2.jsp">次の入力画面へ</a>
+  <p><a href="../product/main.jsp">メイン画面に戻る</a>
 </body>
 </html>
