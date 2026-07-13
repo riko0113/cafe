@@ -2,6 +2,7 @@ package sales.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,142 +14,54 @@ import tool.DAO;
 public class ProductSalesSummaryDAO extends DAO {
 	
 	
-	// 学生情報の一覧を取得
-	public List<ProductSalesSummary> searchdaily() throws Exception {
-		List<Student> students = new ArrayList<>();
+	// 日付情報から商品別売上合計を取得
+	public List<ProductSalesSummary> searchdaily(LocalDate salesDate) throws Exception {
+		List<ProductSalesSummary> pdailysales = new ArrayList<>();
 		
 		Connection con = getConnection();
+		LocalDate nextDays = salesDate.plusDays(1); // 1日後
+
+		PreparedStatement st = con.prepareStatement("SELECT "
+			  + "p.product_id, "
+			  + "p.product_name, "
+			  + "g.genre_name, "
+			  + "SUM(od.num) AS total_quantity, "
+			  + "SUM(od.subtotal) AS total_amount "
+			  + "FROM ordering o "
+			  + "INNER JOIN order_detail od "
+			  +  "ON o.order_id = od.order_id "
+			  + "INNER JOIN product p "
+			  + "ON od.product_id = p.product_id "
+			  + "INNER JOIN genre g "
+			  + "ON p.genre_id = g.genre_id "
+			  + "WHERE o.datetime >= ? "
+			  + "AND o.datetime < ? "
+			  + "GROUP BY "
+			  + "p.product_id, "
+			  + "p.product_name, "
+			  + "g.genre_name "
+			  + "ORDER BY "
+			  + "p.product_id;"
+		);
+
+		st.setObject(1, salesDate);
+		st.setObject(2, nextDays);
 		
-		PreparedStatement st = con.prepareStatement("select * from student where std_is_attend = true");
 		ResultSet rs = st.executeQuery();
-		
 		while (rs.next()) {
-			Student std = new Student();
-			std.setNo(rs.getString("no"));
-			std.setName(rs.getString("name"));
-			std.setEnt_year(rs.getInt("ent_year"));
-			std.setClass_num(rs.getString("class_num"));
-			std.setStd_is_attend(rs.getBoolean("std_is_attend"));
-			std.setSchool_cd(rs.getString("school_cd"));
-			students.add(std);
+			ProductSalesSummary pds = new ProductSalesSummary();
+			pds.setProduct_id(rs.getInt("product_id"));
+			pds.setProduct_name(rs.getString("product_name"));
+			pds.setGenre_name(rs.getString("genre_name"));
+			pds.setTotal_quantity(rs.getInt("quantity"));
+			pds.setTotal_amount(rs.getBigDecimal("amount"));
+			pdailysales.add(pds);
 			
-//			p.setUser_name(rs.getString("user_name"));
-//			p.setTitle(rs.getString("title"));
-//			p.setLike_count(rs.getInt("like_count"));
-//			p.setComment(rs.getString("comment"));			
+//					
 		}
 		
 		st.close();
 		con.close();
-		return students;
-	}
-	
-	// 変更用全件取得
-	public List<Student> searchAll() throws Exception {
-		List<Student> students = new ArrayList<>();
-		
-		Connection con = getConnection();
-		
-		PreparedStatement st = con.prepareStatement("select * from student");
-		ResultSet rs = st.executeQuery();
-		
-		while (rs.next()) {
-			Student std = new Student();
-			std.setNo(rs.getString("no"));
-			std.setName(rs.getString("name"));
-			std.setEnt_year(rs.getInt("ent_year"));
-			std.setClass_num(rs.getString("class_num"));
-			std.setStd_is_attend(rs.getBoolean("std_is_attend"));
-			std.setSchool_cd(rs.getString("school_cd"));
-			students.add(std);
-			
-//			p.setUser_name(rs.getString("user_name"));
-//			p.setTitle(rs.getString("title"));
-//			p.setLike_count(rs.getInt("like_count"));
-//			p.setComment(rs.getString("comment"));			
-		}
-		
-		st.close();
-		con.close();
-		return students;
-	}
-	
-	// 主キーで1件取得
-	public Student findByNo(String no) throws Exception {
-		Connection con = getConnection();
-
-		PreparedStatement st = con.prepareStatement(
-				"SELECT * FROM student WHERE no = ?"
-				);
-		st.setString(1, no);
-
-		ResultSet rs = st.executeQuery();
-
-		Student std = null;
-
-		if (rs.next()) {
-			std = new Student();
-			std.setNo(rs.getString("no"));
-			std.setName(rs.getString("name"));
-			std.setEnt_year(rs.getInt("ent_year"));
-			std.setClass_num(rs.getString("class_num"));
-			std.setSchool_cd(rs.getString("school_cd"));
-			}
-
-		st.close();
-		con.close();
-
-		return std;
-	}
-	// 変更
-	public void update(Student student) throws Exception {
-		Connection con = getConnection();
-		PreparedStatement st = con.prepareStatement(
-				"UPDATE STUDENT SET NAME = ?, ENT_YEAR = ?, CLASS_NUM = ?, SCHOOL_CD = ? WHERE NO = ?"
-				);
-		st.setString(1, student.getName());
-		st.setInt(2, student.getEnt_year());
-		st.setString(3, student.getClass_num());
-		st.setString(4, student.getSchool_cd());
-		st.setString(5, student.getNo());
-		st.executeUpdate();
-		
-		st.close();
-	    con.close();
-	}
-	
-	// 削除(在籍フラグ変更)
-	public void delete(String no) throws Exception {
-		Connection con = getConnection();
-		
-		PreparedStatement st = con.prepareStatement(
-				"UPDATE STUDENT SET STD_IS_ATTEND = FALSE WHERE NO = ?"
-				);
-		st.setString(1, no);
-
-		int result = st.executeUpdate();
-		System.out.println("削除(論理)件数：" + result);
-
-		
-		st.close();
-		con.close();
-	}
-	
-	// 新規学生登録
-	public void insert(Student student) throws Exception {
-	    Connection con = getConnection();
-	    
-	    PreparedStatement st = con.prepareStatement(
-	        "INSERT INTO STUDENT VALUES(?, ?, ?, ?, true, ?)"
-	    );
-	    st.setString(1, student.getNo());
-	    st.setString(2, student.getName());
-	    st.setInt(3, student.getEnt_year());
-	    st.setString(4, student.getClass_num());
-	    st.setString(5, student.getSchool_cd());
-	    st.executeUpdate();
-
-	    st.close();
-	    con.close();
+		return pdailysales;
 	}
 }

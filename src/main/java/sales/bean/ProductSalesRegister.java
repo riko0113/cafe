@@ -1,10 +1,11 @@
 package sales.bean;
 import java.math.BigDecimal;
 
-public class DailySales implements java.io.Serializable {
+public class ProductSalesRegister implements java.io.Serializable {
 	
 	private int product_id;
 	private String product_name;
+	private String genre_name;
 	private int total_quantity;
 	private BigDecimal total_amount;
 	
@@ -15,6 +16,10 @@ public class DailySales implements java.io.Serializable {
 
     public String getProduct_name() {
         return product_name;
+    }
+
+    public String getGenre_name() {
+        return genre_name;
     }
     
     public int getTotal_quantity() {
@@ -31,6 +36,10 @@ public class DailySales implements java.io.Serializable {
 
     public void setProduct_name(String product_name) {
         this.product_name = product_name;
+    }
+    
+    public void setGenre_name(String genre_name) {
+    	this.genre_name = genre_name;
     }
     
     public void setTotal_quantity(int total_quantity) {
