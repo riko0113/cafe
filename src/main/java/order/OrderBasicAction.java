@@ -1,7 +1,7 @@
 package order;
 
-//import order.OrderBeant;
-//import order.StudentDAO;
+import java.util.List;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -19,11 +19,9 @@ public class OrderBasicAction extends Action {
 
 
 	    // DAOを使ってDB
-	    //OrderDAO dao = new OrderDAO();
-	        
-	    //List<OrderBean> list = null;
+	    OrderDAO dao = new OrderDAO();
 	            
-	    //Student product = dao.all();
+	    List<ProductBean> product = dao.all();
 	            
 	    request.setAttribute("products", product);
 	    return "/order/ordering.jsp";

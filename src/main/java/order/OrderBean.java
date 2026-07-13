@@ -1,14 +1,18 @@
 package order;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class OrderBean implements java.io.Serializable {
 
     private Integer orderId;
     private BigDecimal payAmount;
     private Integer payWayId;
+    private LocalDateTime datetime;
     private Boolean isTakeOut;
     private BigDecimal totalExclTax;
+    private List<OrderDetailBean> details;
 
     public Integer getOrderId() {
         return orderId;
@@ -21,6 +25,10 @@ public class OrderBean implements java.io.Serializable {
     public Integer getPayWayId() {
         return payWayId;
     }
+    
+    public LocalDateTime getDatetime() {
+        return datetime;
+    }
 
     public Boolean getIsTakeOut() {
         return isTakeOut;
@@ -29,7 +37,11 @@ public class OrderBean implements java.io.Serializable {
     public BigDecimal getTotalExclTax() {
         return totalExclTax;
     }
-
+    
+    public List<OrderDetailBean> getDetails() {
+        return details;
+    }
+    
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
@@ -42,11 +54,19 @@ public class OrderBean implements java.io.Serializable {
         this.payWayId = payWayId;
     }
 
+    public void setDatetime(LocalDateTime datetime) {
+        this.datetime = datetime;
+    }
+    
     public void setIsTakeOut(Boolean isTakeOut) {
         this.isTakeOut = isTakeOut;
     }
     
     public void setTotalExclTax(BigDecimal totalExclTax) {
         this.totalExclTax = totalExclTax;
+    }
+    
+    public void setDetails(List<OrderDetailBean> details) {
+        this.details = details;
     }
 }

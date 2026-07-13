@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,32 +13,59 @@ import tool.DAO;
 
 public class OrderDAO extends DAO {
     
-    public List<OrderBean> all() throws Exception {
-    	List<OrderBean> list = new ArrayList<>();
-
+	public List<OrderBean> findByDate(String targetDate) throws Exception {
+        List<OrderBean> orderList = new ArrayList<>();
         Connection con = getConnection();
 
-        PreparedStatement st = con.prepareStatement("select * from ordering");
+        // 1. まずは指定された日付の「注文（親）」をすべて取得する
+        String orderSql = "select * from ordering where datetime::date = ? order by datetime desc";
         
-        ResultSet rs = st.executeQuery();
+        // 2. その注文に紐づく「詳細（子）と商品名」を取得するSQL
+        String detailSql = "select d.*, p.product_name from order_detail as d "
+                         + "join product as p on d.product_id = p.product_id "
+                         + "where d.order_id = ?";
 
-        while (rs.next()) {
-            OrderBean order = new OrderBean();
+        try (PreparedStatement stOrder = con.prepareStatement(orderSql)) {
+            stOrder.setString(1, targetDate);
+            
+            try (ResultSet rsOrder = stOrder.executeQuery()) {
+                while (rsOrder.next()) {
+                    OrderBean order = new OrderBean();
+                    order.setOrderId(rsOrder.getInt("order_id"));
+                    order.setDatetime(rsOrder.getObject("datetime", LocalDateTime.class));
+                    order.setPayAmount(rsOrder.getBigDecimal("pay_amount"));
+                    order.setPayWayId(rsOrder.getInt("payway_id"));
+                    
+                    List<OrderDetailBean> detailList = new ArrayList<>();
+                    
+                    try (PreparedStatement stDetail = con.prepareStatement(detailSql)) {
+                        stDetail.setInt(1, order.getOrderId()); // この注文のIDをセット
+                        
+                        try (ResultSet rsDetail = stDetail.executeQuery()) {
+                            while (rsDetail.next()) {
+                                OrderDetailBean detail = new OrderDetailBean();
+                                detail.setOrderDetailId(rsDetail.getInt("orderdetail_id"));
+                                detail.setProductId(rsDetail.getInt("product_id"));
+                                detail.setOrderId(rsDetail.getInt("order_id"));
+                                detail.setNum(rsDetail.getInt("num"));
+                                detail.setSubtotal(rsDetail.getBigDecimal("subtotal"));
+                                detail.setProductName(rsDetail.getString("product_name")); 
 
-            order.setStudent_no(rs.getString("student_no"));
-            order.setStudent_name(rs.getString("student_name"));
-            order.setEnt_year(rs.getInt("ent_year"));
-            order.setClass_num(rs.getString("class_num"));
-            order.setIs_attend(rs.getBoolean("is_attend"));
-            order.setSchool_id(rs.getString("school_id"));
+                                detailList.add(detail); // 詳細リストに詰める
+                            }
+                        }
+                    }
 
-            list.add(order);
+                    order.setDetails(detailList);
+
+                    orderList.add(order);
+                }
+            }
+        } finally {
+            con.close();
         }
 
-        st.close();
-        con.close();
-
-        return list;
+        return orderList;
     }
     
     public int insert(OrderBean order, List<OrderDetailBean> details) throws Exception {
@@ -51,8 +79,8 @@ public class OrderDAO extends DAO {
         con.setAutoCommit(false);
 
         // SQL文の準備
-        String insertOrderSql = "insert into ordering VALUES (?, ?, ?, ?, ?, ?)";
-        String insertDetailSql = "insert into order_detail VALUES (?, ?, ?, ?, ?)";
+        String insertOrderSql = "insert into ordering values (null, ?, ?, ?, ?, ?)";
+        String insertDetailSql = "insert into order_detail values (null, ?, ?, ?, ?)";
 
         // try-catch を使って、途中でエラーが起きたらロールバックできるように囲む
         try {
@@ -60,12 +88,11 @@ public class OrderDAO extends DAO {
 
             // 2. 注文テーブルへのインサート（自動採番されたIDを返す設定「Statement.RETURN_GENERATED_KEYS」をつける）
             try (PreparedStatement stOrder = con.prepareStatement(insertOrderSql, Statement.RETURN_GENERATED_KEYS)) {
-                stOrder.setInt(1, order.getOrderId());
-                stOrder.setBigDecimal(2, order.getPayAmount());
-                stOrder.setInt(3, order.getPayWayId());
-                stOrder.setObject(4, java.time.LocalDateTime.now()); // 現在日時
-                stOrder.setBoolean(5, order.getIsTakeOut());
-                stOrder.setBigDecimal(6, order.getTotalExclTax());
+            	stOrder.setBigDecimal(1, order.getPayAmount());
+                stOrder.setInt(2, order.getPayWayId());
+                stOrder.setObject(3, java.time.LocalDateTime.now()); // 現在日時
+                stOrder.setBoolean(4, order.getIsTakeOut());
+                stOrder.setBigDecimal(5, order.getTotalExclTax());
                 
                 line += stOrder.executeUpdate(); // 注文の登録（成功したら+1）
 
@@ -81,17 +108,25 @@ public class OrderDAO extends DAO {
             }
 
             // 3. 注文詳細テーブルへのインサート（リストに入っている分だけループで回す）
-            try (PreparedStatement stDetail = con.prepareStatement(insertDetailSql)) {
+            try (PreparedStatement stDetail = con.prepareStatement(insertDetailSql, Statement.RETURN_GENERATED_KEYS)) {
                 for (OrderDetailBean detail : details) {
                 	detail.setOrderId((int) orderId);
                 	
-                    stDetail.setInt(1, detail.getOrderDetailId());
-                    stDetail.setInt(2, detail.getProductId());
-                    stDetail.setInt(3, detail.getOrderId()); 
-                    stDetail.setInt(4, detail.getNum());
-                    stDetail.setBigDecimal(5, detail.getSubtotal());
+                	stDetail.setInt(1, detail.getProductId());
+                    stDetail.setInt(2, detail.getOrderId()); 
+                    stDetail.setInt(3, detail.getNum());
+                    stDetail.setBigDecimal(4, detail.getSubtotal());
                     
                     line += stDetail.executeUpdate(); // 詳細の登録（1件ごとに+1）
+                    
+                    try (ResultSet generatedDetailKeys = stDetail.getGeneratedKeys()) {
+                        if (generatedDetailKeys.next()) {
+                            long detailId = generatedDetailKeys.getLong(1);
+                            detail.setOrderDetailId((int) detailId); 
+                        } else {
+                            throw new SQLException("注文詳細IDの自動採番に失敗しました。");
+                        }
+                    }
                 }
             }
 

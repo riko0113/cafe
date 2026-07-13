@@ -9,6 +9,7 @@ public class OrderDetailBean implements java.io.Serializable {
     private Integer orderId;
     private Integer num;
     private BigDecimal subtotal;
+    private String productName;
 
     public Integer getOrderDetailId() {
         return orderDetailId;
@@ -29,6 +30,10 @@ public class OrderDetailBean implements java.io.Serializable {
     public BigDecimal getSubtotal() {
         return subtotal;
     }
+    
+    public String getProductName() {
+        return productName;
+    }
 
     public void setOrderDetailId(Integer orderDetailId) {
         this.orderDetailId = orderDetailId;
@@ -48,5 +53,9 @@ public class OrderDetailBean implements java.io.Serializable {
     
     public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
+    }
+    
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }
