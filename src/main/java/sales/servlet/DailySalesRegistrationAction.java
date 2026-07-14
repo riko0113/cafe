@@ -18,13 +18,13 @@ public class DailySalesRegistrationAction extends Action {
 		try {
             // DAO で投稿一覧取得
             DailySalesDAO dsdao = new DailySalesDAO();
-            LocalDate parsedDate = LocalDate.parse(request.getParameter("culcdate"));
+            LocalDate parsedDate = LocalDate.parse(request.getParameter("calcdate"));
             List<DailySales> dailysales = dsdao.searchdaily(parsedDate);
-            dsdao.insert(parsedDate, dailysales);
+            dsdao.save(parsedDate, dailysales);
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "/sales/error.jsp";
+            return "/sales/sales_registration_error.jsp";
         }
 		
 		return "/sales/sales_registration_success.jsp";

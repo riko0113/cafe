@@ -3,11 +3,10 @@ package sales.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.time.LocalDate;
-import java.math.BigDecimal;
 import sales.bean.DailySales;
 //import model.User;
 import tool.DAO;
@@ -59,91 +58,52 @@ public class DailySalesDAO extends DAO {
 		return dailysales;
 	}
 	
-	// 日売上更新
-    public void update(
-            LocalDate salesDate,
-            List<DailySales> list
-            ) throws Exception {
+	public void save(
+	        LocalDate salesDate,
+	        List<DailySales> list
+	        ) throws Exception {
 
-        Connection con = getConnection();
+	    Connection con = getConnection();
 
-        String sql =
-            "UPDATE daily_product_sales "
-          + "SET product_id = ?, total_quantity = ?, total_amount = ?"
-          + "WHERE sales_date = ?";
+	    String sql =
+	        "INSERT INTO daily_product_sales "
+	      + "(sales_date, product_id, total_quantity, total_amount) "
+	      + "VALUES (?, ?, ?, ?) "
+	      + "ON CONFLICT (sales_date, product_id) "
+	      + "DO UPDATE SET "
+	      + "total_quantity = EXCLUDED.total_quantity, "
+	      + "total_amount = EXCLUDED.total_amount";
 
-        PreparedStatement st = con.prepareStatement(sql);
-        for (DailySales p : list) {
+	    PreparedStatement st =
+	        con.prepareStatement(sql);
 
-            st.setInt(
-                1,
-                p.getProduct_id()
-            );
+	    for (DailySales p : list) {
 
-            st.setInt(
-                2,
-                p.getTotal_quantity()
-            );
+	        st.setDate(
+	            1,
+	            java.sql.Date.valueOf(salesDate)
+	        );
 
-            st.setBigDecimal(
-                3,
-                p.getTotal_amount()
-            );
-            
-            st.setDate(
-                4,
-                java.sql.Date.valueOf(salesDate)
-            );
+	        st.setInt(
+	            2,
+	            p.getProduct_id()
+	        );
 
+	        st.setInt(
+	            3,
+	            p.getTotal_quantity()
+	        );
 
-            st.executeUpdate();
-        }
+	        st.setBigDecimal(
+	            4,
+	            p.getTotal_amount()
+	        );
 
-        st.close();
-        con.close();
-    }
-    
-	// 日売上登録
-    public void insert(
-            LocalDate salesDate,
-            List<DailySales> list
-            ) throws Exception {
+	        st.executeUpdate();
+	    }
 
-        Connection con = getConnection();
-
-        String sql =
-            "INSERT INTO daily_product_sales "
-          + "(sales_date, product_id, total_quantity, total_amount) "
-          + "VALUES (?, ?, ?, ?)";
-
-        PreparedStatement st = con.prepareStatement(sql);
-        for (DailySales p : list) {
-
-            st.setDate(
-                1,
-                java.sql.Date.valueOf(salesDate)
-            );
-
-            st.setInt(
-                2,
-                p.getProduct_id()
-            );
-
-            st.setInt(
-                3,
-                p.getTotal_quantity()
-            );
-
-            st.setBigDecimal(
-                4,
-                p.getTotal_amount()
-            );
-
-            st.executeUpdate();
-        }
-
-        st.close();
-        con.close();
-    }
+	    st.close();
+	    con.close();
+	}
 
 }

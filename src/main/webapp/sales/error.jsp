@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>売上管理</title>
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/sales/servlet/DailySalesCulcAction.action">
-			日売上登録画面へ
+	<a href="${pageContext.request.contextPath}/sales/sales_menu.jsp">
+			売上管理画面へ
 	</a>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <body>
  <form action="${pageContext.request.contextPath}/sales/servlet/DailySalesRegister.action">
   <label for="date">売上計算日を入力</label>
-  <input type="date" id="culcdate" name="culcdate">
+  <input type="date" id="calcdate" name="calcdate">
   <button type="submit">計算</button>
  </form>
 </body>

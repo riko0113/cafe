@@ -5,13 +5,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
 
 
-public class DailySalesCulcAction extends Action {
+public class DailySalesCalcAction extends Action {
 	
 	public String execute (
 			HttpServletRequest request, HttpServletResponse response
 			) throws Exception {
 		
-		return "/sales/daily_sales_culc.jsp";
+		return "/sales/daily_sales_calc.jsp";
 	}
 
 }
