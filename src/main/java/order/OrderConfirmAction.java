@@ -45,7 +45,7 @@ public class OrderConfirmAction extends Action{
 	            order.setPayWayId(1); 
 	        } else if ("クレジットカード".equals(paymentMethod)) {
 	            order.setPayWayId(2);
-	        } else if ("電子マネー".equals(paymentMethod)) { // 💡 pay.jspに合わせて電子マネーを追加
+	        } else if ("電子マネー".equals(paymentMethod)) { 
 	            order.setPayWayId(3);
 	        } else if ("QRコード決済".equals(paymentMethod)) {
 	            order.setPayWayId(4);

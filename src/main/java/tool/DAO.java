@@ -23,7 +23,6 @@ public class DAO {
             InitialContext ic = new InitialContext();
 
             // ② データ取得
-            // jdbc/book という名前のDB設定を取得
             ds = (DataSource) ic.lookup("java:/comp/env/jdbc/cafe");
         }
 

@@ -18,11 +18,12 @@ public class OrderDAO extends DAO {
         Connection con = getConnection();
 
         // 1. まずは指定された日付の「注文（親）」をすべて取得する
-        String orderSql = "select * from ordering where datetime::date = ? order by datetime desc";
+        String orderSql = "select * from ordering where datetime::date = ?::date order by datetime desc";
         
         // 2. その注文に紐づく「詳細（子）と商品名」を取得するSQL
-        String detailSql = "select d.*, p.product_name from order_detail as d "
+        String detailSql = "select d.*, p.product_name, w.payway_name from order_detail as d "
                          + "join product as p on d.product_id = p.product_id "
+                         + "join payway as w on p.payway_id = w.payway_id"
                          + "where d.order_id = ?";
 
         try (PreparedStatement stOrder = con.prepareStatement(orderSql)) {
@@ -35,6 +36,7 @@ public class OrderDAO extends DAO {
                     order.setDatetime(rsOrder.getObject("datetime", LocalDateTime.class));
                     order.setPayAmount(rsOrder.getBigDecimal("pay_amount"));
                     order.setPayWayId(rsOrder.getInt("payway_id"));
+                    order.setPayWayName(rsOrder.getString("payway_name"));
                     
                     List<OrderDetailBean> detailList = new ArrayList<>();
                     
@@ -79,8 +81,8 @@ public class OrderDAO extends DAO {
         con.setAutoCommit(false);
 
         // SQL文の準備
-        String insertOrderSql = "insert into ordering values (null, ?, ?, ?, ?, ?)";
-        String insertDetailSql = "insert into order_detail values (null, ?, ?, ?, ?)";
+        String insertOrderSql = "insert into ordering (pay_amount, payway_id, datetime, is_takeout, total_excl_tax) values (?, ?, ?, ?, ?)";
+        String insertDetailSql = "insert into order_detail (product_id, order_id, num, subtotal) values (?, ?, ?, ?)";
 
         // try-catch を使って、途中でエラーが起きたらロールバックできるように囲む
         try {

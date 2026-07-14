@@ -26,19 +26,8 @@
             <c:when test="${order.payWayId == 2}">クレジットカード</c:when>
             <c:when test="${order.payWayId == 3}">電子マネー</c:when>
             <c:when test="${order.payWayId == 4}">QRコード決済</c:when>
-            <c:otherwise>不明（ID: ${order.payWayId}）</c:otherwise>
         </c:choose>
     </li>
-    <c:if test="${order.payWayId == 1 && not empty change}">
-        <li>
-            <strong>お預かり金額：</strong> 
-            <c:out value="${charge}" /> 円
-        </li>
-        <li>
-            <strong>お釣り：</strong> 
-            <strong><c:out value="${change}" /></strong> 円
-        </li>
-    </c:if>
     <li>
         <strong>利用区分：</strong>
         ${order.isTakeOut ? 'お持ち帰り（8%）' : 'イートイン（10%）'}
