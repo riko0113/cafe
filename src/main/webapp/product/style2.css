@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	
+	background-image: radial-gradient(circle at center, #ffffff 0%, #000000 80%);
+	background-attachment: fixed;
+	text-align: center;
+	margin-top: 240px;
+	margin-bottom: 20px;
+}
+
+h2 {
+	color: aqua;
+	font-size: 4rem;
+}
+
+form {
+	color: white;
+	font-size: 3rem;
+}
