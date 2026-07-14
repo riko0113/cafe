@@ -2,6 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../header.jsp" %>
 
+<button type="button" onclick="location.href='/cafe/order/OrderHistory.action'">
+    注文履歴を見る
+</button>
+
 <span>利用方法を選択：</span>
 <button type="button" class="tax-type-btn active" onclick="switchTaxType(this, 1.08)">お持ち帰り</button>
 <button type="button" class="tax-type-btn" onclick="switchTaxType(this, 1.10)">イートイン</button>
