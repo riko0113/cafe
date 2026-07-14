@@ -17,7 +17,7 @@ public class AccountDAO extends DAO {
 
         // SQLを準備（?で値を後からセットする＝SQLインジェクション対策）
         PreparedStatement st = con.prepareStatement(
-            "select * from account where accout_id=? and password=?"
+            "select * from account where account_id=? and password=? and is_deleted=false"
         );
 
         st.setString(1, account_id);
@@ -57,6 +57,24 @@ public class AccountDAO extends DAO {
 		st.setString(1, account_id);
 		st.setString(2, user_name);
 		st.setString(3, password);
+		
+		line = st.executeUpdate();
+		
+		
+		st.close();
+		con.close();
+		
+		return line;
+    }
+    
+    public int update() throws Exception{
+    	
+    	int line = 0;
+    	
+    	Connection con = getConnection();
+    	
+    	PreparedStatement st=con.prepareStatement("update account set is_deleted = true");
+    	
 		
 		line = st.executeUpdate();
 		

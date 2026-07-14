@@ -27,7 +27,7 @@
             <h3>注文日時: <c:out value="${order.datetime}" /></h3>
             <p>
                 合計金額: <c:out value="${order.payAmount}" /> 円 / 
-                支払方法ID: <c:out value="${order.payWayId}" /> / 
+                支払方法: <c:out value="${order.payWayName}" /> / 
             </p>
             
             <!-- 内訳（子ループ：その注文に含まれるメニュー名と個数） -->

@@ -19,11 +19,12 @@ public class OrderBasicAction extends Action {
 
 
 	    // DAOを使ってDB
-	    OrderDAO dao = new OrderDAO();
+	    ProductDAO dao = new ProductDAO();
 	            
 	    List<ProductBean> product = dao.all();
 	            
 	    request.setAttribute("products", product);
+	    
 	    return "/order/ordering.jsp";
 	}
 }

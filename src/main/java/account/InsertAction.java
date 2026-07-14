@@ -25,7 +25,7 @@ public class InsertAction extends Action {
 
         if (line>0) {
 
-            return "/account/login/login.jsp";
+            return "/account/login/success.jsp";
         }
 
         return "/account/login/inser-error.jsp";

@@ -9,6 +9,7 @@ public class OrderBean implements java.io.Serializable {
     private Integer orderId;
     private BigDecimal payAmount;
     private Integer payWayId;
+    private String payWayName;
     private LocalDateTime datetime;
     private Boolean isTakeOut;
     private BigDecimal totalExclTax;
@@ -24,6 +25,10 @@ public class OrderBean implements java.io.Serializable {
 
     public Integer getPayWayId() {
         return payWayId;
+    }
+    
+    public String getPayWayName() {
+        return payWayName;
     }
     
     public LocalDateTime getDatetime() {
@@ -53,7 +58,11 @@ public class OrderBean implements java.io.Serializable {
     public void setPayWayId(Integer payWayId) {
         this.payWayId = payWayId;
     }
-
+    
+    public void setPayWayName(String payWayName) {
+        this.payWayName = payWayName;
+    }
+    
     public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
     }

@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<h2>馬場脩吾編集記録</h2>
-</body>
-</html>
+<%@ include file="../header.jsp" %>
+
+<h2>馬場脩吾編集記録</h2>
+<a href="/cafe/order/OrderBasic.action">注文</a>
+<%@ include file="../footer.jsp" %>

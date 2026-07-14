@@ -1,6 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="../header.jsp" %>
+
+<style>
+.tab.active {
+    color: red;
+    font-weight: bold;
+}
+
+.product-card {
+    display: none;
+}
+
+.product-card.active {
+    display: block; 
+}
+</style>
 
 <button type="button" onclick="location.href='/cafe/order/OrderHistory.action'">
     注文履歴を見る
@@ -13,20 +29,25 @@
 <hr>
 
 <div>
-    <c:forEach var="product" items="${products}" varStatus="status">
-        <span class="tab ${status.first ? 'active' : ''}" 
-              data-genre-id="${product.genreId}" 
-              onclick="switchGenre('${product.genreId}')" 
-              style="margin-right: 15px; cursor: pointer; text-decoration: underline;">
-            <c:out value="${product.genreName}" />
-        </span>
+    <c:set var="addedGenres" value="" />
+    
+    <c:forEach var="product" items="${products}">
+        <c:if test="${!fn:contains(addedGenres, product.genreId)}">
+            <span class="tab ${empty addedGenres ? 'active' : ''}" 
+                  data-genre-id="${product.genreId}" 
+                  onclick="switchGenre('${product.genreId}')" 
+                  style="margin-right: 15px; cursor: pointer; text-decoration: underline;">
+                <c:out value="${product.genreName}" />
+            </span>
+            <c:set var="addedGenres" value="${addedGenres},${product.genreId}" />
+        </c:if>
     </c:forEach>
 </div>
 
 <hr>
 
 <div>
-    <c:forEach var="product" items="${products}">
+    <c:forEach var="product" items="${products}" varStatus="status">
         <div class="product-card" data-genre-id="${product.genreId}">
             <button onclick="addToCart('${product.productId}', '${product.productName}', ${product.price})">
                 <c:out value="${product.productName}" />
