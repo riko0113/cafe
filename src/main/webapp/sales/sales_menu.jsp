@@ -10,20 +10,23 @@
 </head>
 <body>
 	<form action="${pageContext.request.contextPath}/sales/servlet/DailyProductSalesSummary.action">
-		<input type="hidden" id="culcdate" name="culcdate" value="${culcdate}">
+		<input type="hidden" id="calcdate" name="targetDate" value="2026-07-01">
 		<button type="submit">日次売上詳細</button>
 	</form>
-	<form action="${pageContext.request.contextPath}/sales/servlet/MounthlyProductSalesSummary.action">
-		<input type="hidden" id="culcdate" name="culcdate" value="${culcdate}">
+	<form action="${pageContext.request.contextPath}/sales/servlet/MonthlyProductSalesSummary.action">
+		<input type="hidden" id="calcmonth" name="targetMonth" value="2026-07">
 		<button type="submit">月次売上詳細</button>
 	</form>
-	<a href="${pageContext.request.contextPath}/sales/servlet/ProductSalesSummary.action">
-			商品売上合計
+	<a href="${pageContext.request.contextPath}/sales/servlet/DailySalesSummary.action">
+			日売上合計
+	</a>
+	<a href="${pageContext.request.contextPath}/sales/servlet/MonthlySalesSummary.action">
+			月売上合計
 	</a>
 	<a href="${pageContext.request.contextPath}/sales/servlet/ProfitManagement.action">
 			損益管理
 	</a>
-	<a href="${pageContext.request.contextPath}/sales/servlet/DailySalesCulcAction.action">
+	<a href="${pageContext.request.contextPath}/sales/servlet/DailySalesCalc.action">
 			日売上登録
 	</a>
 </body>

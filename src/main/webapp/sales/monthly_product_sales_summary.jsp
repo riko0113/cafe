@@ -5,17 +5,17 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>日次商品別売上合計確認</title>
+<title>月次商品別売上合計確認</title>
 </head>
 <body>
 
-<h1>${targetDate}日商品別売上合計確認画面</h1>
+<h1>${targetMonth}月商品別売上合計確認</h1>
 
-<form action="${pageContext.request.contextPath}/sales/servlet/DailyProductSalesSummary.action" method="post">
-    <h3>集計種別</h3>
+<form action="${pageContext.request.contextPath}/sales/servlet/MonthlyProductSalesSummary.action" method="post">
+    <h3>集計月</h3>
     <div id="dailyArea">
-        <label>対象日</label>
-        <input type="date" name="targetDate">
+        <label>対象月</label>
+        <input type="month" name="targetMonth">
     </div>
     <button type="submit" value="検索">検索</button>
 </form>
@@ -33,19 +33,19 @@
         	<th>売上合計金額</th>
     	</tr>
 		<c:choose>
-			<c:when test="${empty dailysales}">
+			<c:when test="${empty monthlysales}">
 				</thead>
 				</table>
 				<p>まだ売上が登録されていません</p>
 			</c:when>
 			<c:otherwise>
-				<c:forEach var="ds" items="${dailysales}">
+				<c:forEach var="ms" items="${monthlysales}">
 					<tr>
-						<td>${ds.product_id}</td>
-						<td>${ds.product_name}</td>
-						<td>${ds.genre_name}</td>
-						<td>${ds.total_quantity}</td>
-						<td>${ds.total_amount}</td>
+						<td>${ms.product_id}</td>
+						<td>${ms.product_name}</td>
+						<td>${ms.genre_name}</td>
+						<td>${ms.total_quantity}</td>
+						<td>${ms.total_amount}</td>
 					</tr>
 				</c:forEach>
 				</thead>

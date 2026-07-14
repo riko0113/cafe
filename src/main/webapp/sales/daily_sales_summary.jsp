@@ -5,34 +5,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>損益管理</title>
+<title>売上詳細</title>
 </head>
 <body>
-<h1>損益管理</h1>
+<h1>日次売上合計確認画面</h1>
 
 
-<h3 class="mb-3">粗利率計算</h3>
+<h3 class="mb-3">商品売上一覧</h3>
 <table class="table table-striped table-bordered">
 	<thead class="table-dark">
 		<tr>
-        	<th>月</th>
-        	<th>合計売上金額</th>
-        	<th>合計仕入額</th>
-        	<th>粗利率</th>
+        	<th>日付</th>
+        	<th>売上合計金額</th>
+        	<th>合計支払金額（税込）</th>
+        	<th>合計税額</th>
     	</tr>
 		<c:choose>
-			<c:when test="${empty profitlist}">
+			<c:when test="${empty salessummarys}">
 				</thead>
 				</table>
 				<p>まだ売上が登録されていません</p>
 			</c:when>
 			<c:otherwise>
-				<c:forEach var="pl" items="${profitlist}">
+				<c:forEach var="ss" items="${salessummarys}">
 					<tr>
-						<td>${pl.targetMonth}</td>
-						<td>${pl.salesAmount}</td>
-						<td>${pl.purchaseAmount}</td>
-						<td>${pl.grossMarginRate}</td>
+						<td>${ss.targetDate}</td>
+						<td>${ss.totalInclTax}</td>
+						<td>${ss.totalExclTax}</td>
+						<td>${ss.totalTax}</td>
 					</tr>
 				</c:forEach>
 				</thead>

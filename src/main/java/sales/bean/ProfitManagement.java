@@ -1,59 +1,47 @@
 package sales.bean;
 
-public class ProfitManagement implements java.io.Serializable {
-	
-	private String no;
-	private String name;
-	private int ent_year;
-	private String class_num;
-	private boolean std_is_attend;
-	private String school_cd;
-	
-	public String getNo() {
-        return no;
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+public class ProfitManagement implements Serializable {
+
+    private String targetMonth;
+
+    private BigDecimal salesAmount;
+
+    private BigDecimal purchaseAmount;
+
+    private BigDecimal grossMarginRate;
+
+    public String getTargetMonth() {
+        return targetMonth;
     }
 
-    public String getName() {
-        return name;
+    public void setTargetMonth(String targetMonth) {
+        this.targetMonth = targetMonth;
     }
 
-    public int getEnt_year() {
-        return ent_year;
-    }
-    
-    public String getClass_num() {
-    	return class_num;
-    }
-    
-    public boolean getStd_is_attend() {
-    	return std_is_attend;
-    }
-    
-    public String getSchool_cd() {
-    	return school_cd;
+    public BigDecimal getSalesAmount() {
+        return salesAmount;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setSalesAmount(BigDecimal salesAmount) {
+        this.salesAmount = salesAmount;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public BigDecimal getPurchaseAmount() {
+        return purchaseAmount;
     }
 
-    public void setEnt_year(int ent_year) {
-        this.ent_year = ent_year;
+    public void setPurchaseAmount(BigDecimal purchaseAmount) {
+        this.purchaseAmount = purchaseAmount;
     }
-    
-    public void setClass_num(String class_num) {
-    	this.class_num = class_num;
+
+    public BigDecimal getGrossMarginRate() {
+        return grossMarginRate;
     }
-    
-    public void setStd_is_attend(boolean is_attend) {
-    	this.std_is_attend = is_attend;
-    }
-    
-    public void setSchool_cd(String school_cd) {
-    	this.school_cd = school_cd;
+
+    public void setGrossMarginRate(BigDecimal grossMarginRate) {
+        this.grossMarginRate = grossMarginRate;
     }
 }

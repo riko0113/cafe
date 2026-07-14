@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${culcdate}売上登録</title>
+<title>${culcdate}日売上登録</title>
 </head>
 <body>
 	<table class="table table-striped table-bordered">
@@ -28,7 +28,7 @@
         				<td>${d.product_id}</td>
 			        	<td>${d.product_name}</td>
         				<td>${d.total_quantity}</td>
-        				<td>${d.totalamount}</td>
+        				<td>${d.total_amount}</td>
 	        		</tr>
 			    </c:forEach>
         		</thead>
@@ -36,7 +36,7 @@
     		</c:otherwise>
 			</c:choose>
 	<form action="${pageContext.request.contextPath}/sales/servlet/DailySalesRegistration.action">
-		<input type="hidden" id="culcdate" name="culcdate" value="${culcdate}">
+		<input type="hidden" id="culcdate" name="calcdate" value="${calcdate}">
 		<button type="submit">登録</button>
 	</form>
 </body>
