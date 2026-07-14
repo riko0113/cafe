@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ジャンル</title>
+<link rel="stylesheet" href="style4.css">
 </head>
 <body>
   <h2>ジャンルのIDと名前を登録しよう</h2>

@@ -1,5 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-  <a href="insert.jsp"style="color: red;">商品登録画面</a>
-  <a href="../product/all">参照画面</a>
+  <link rel="stylesheet" href="style.css">
+  <a href="insert.jsp" class="btn-register">商品登録画面</a>
+  <a href="all" class="btn-views">参照画面</a>
+  <a href="seach.jsp" class="btn-seachs">検索</a>
 <hr>
