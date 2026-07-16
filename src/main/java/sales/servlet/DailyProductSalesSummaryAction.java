@@ -26,10 +26,10 @@ public class DailyProductSalesSummaryAction extends Action {
             ProductSalesSummaryDAO pdsdao = new ProductSalesSummaryDAO();
             LocalDate parsedDate = LocalDate.parse(targetDateStr);
             List<ProductSalesSummary> dailysales = pdsdao.searchdaily(parsedDate);
-            String targetDate = request.getParameter("targetDate");
+            
             
             // リクエストに保存
-            request.setAttribute("targetDate", targetDate);
+            request.setAttribute("targetDate", targetDateStr);
             request.setAttribute("dailysales", dailysales);
 
         } catch (Exception e) {
