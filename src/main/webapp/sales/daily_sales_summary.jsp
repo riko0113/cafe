@@ -11,7 +11,7 @@
 <h1>日次売上合計確認画面</h1>
 
 
-<h3 class="mb-3">商品売上一覧</h3>
+<h3 class="mb-3">売上一覧</h3>
 <table class="table table-striped table-bordered">
 	<thead class="table-dark">
 		<tr>

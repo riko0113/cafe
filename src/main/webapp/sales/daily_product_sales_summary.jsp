@@ -12,7 +12,7 @@
 <h1>${targetDate}日商品別売上合計確認画面</h1>
 
 <form action="${pageContext.request.contextPath}/sales/servlet/DailyProductSalesSummary.action" method="post">
-    <h3>集計種別</h3>
+    <h3>集計日</h3>
     <div id="dailyArea">
         <label>対象日</label>
         <input type="date" name="targetDate">
