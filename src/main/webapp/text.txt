@@ -1,0 +1,10 @@
+header.jsp及び、menu.jspを利用するために、以下を挿入。
+
+<%@ include file="../../header.jsp" %>
+
+<div class="container-fluid">
+    <div class="row">
+        <%@ include file="../../menu.jsp" %>
+
+        <main class="col-md-9 col-lg-10 p-4 bg-light">
+        <!-- 以下に各々の制作したコンテンツを置くこと -->

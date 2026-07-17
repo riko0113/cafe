@@ -22,7 +22,7 @@ public class SalesSummaryDAO extends DAO {
 
 		PreparedStatement st = con.prepareStatement(
 		    "SELECT "
-		    + "DATE(datetime) AS sales_date, "
+		    + "TO_CHAR(DATE(datetime), 'YYYY-MM-DD') AS sales_date, "
 		    + "SUM(total_excl_tax) AS total_excl_tax, "
 		    + "SUM(pay_amount) AS total_incl_tax, "
 		    + "SUM(pay_amount - total_excl_tax) AS total_tax "
@@ -64,7 +64,7 @@ public class SalesSummaryDAO extends DAO {
 		Connection con = getConnection();
 
 		PreparedStatement st = con.prepareStatement("SELECT "
-				+ "DATE_TRUNC('month', datetime) AS sales_month, "
+				+ "TO_CHAR(DATE_TRUNC('month', datetime), 'YYYY-MM') AS sales_month, "
 				+ "SUM(total_excl_tax) AS total_excl_tax, "
 				+ "SUM(pay_amount) AS total_incl_tax, "
 				+ "SUM(pay_amount - total_excl_tax) AS total_tax "
@@ -78,7 +78,7 @@ public class SalesSummaryDAO extends DAO {
 			SalesSummary ss = new SalesSummary();
 
 			ss.setTargetDate(
-			    rs.getString("sales_month")
+				    rs.getString("sales_month")
 			);
 
 			ss.setTotalExclTax(
