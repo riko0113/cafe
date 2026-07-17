@@ -11,7 +11,7 @@ public class AccountBean implements java.io.Serializable {
         return accountId;
     }
 
-    public String getUseName() {
+    public String getUserName() {
         return userName;
     }
 
