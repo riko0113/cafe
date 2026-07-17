@@ -38,7 +38,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="/system/order/order_list.jsp" class="sidebar-link">
-                            <i class="bi bi-cart me-2"></i>注文管理
+                            <i class="bi bi-cart me-2"></i>注文
                         </a>
                     </li>
                     <li class="nav-item">

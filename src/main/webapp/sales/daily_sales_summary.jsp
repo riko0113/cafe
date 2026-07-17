@@ -35,8 +35,8 @@
                                     <thead class="table-dark">
                                         <tr>
                                             <th>日付</th>
-                                            <th class="text-end">売上合計金額</th>
-                                            <th class="text-end">合計支払金額（税込）</th>
+                                            <th class="text-end">合計支払金額（税込み）</th>
+                                            <th class="text-end">合計売上金額（税抜き）</th>
                                             <th class="text-end">合計税額</th>
                                         </tr>
                                     </thead>
