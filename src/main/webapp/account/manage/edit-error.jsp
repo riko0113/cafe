@@ -2,10 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../../head.jsp" %>
 
-<h3>登録が完了しました</h3>
-            
-<p>ログインを行ってください</p>
-
-<a href="/cafe/account/login/login.jsp">ログイン画面</a>
+<h3>エラー</h3>
+<p>編集に失敗しました</p>
+<p>最初からやり直してください</p>
+<a href="/cafe/account/manage/edit.jsp">編集画面</a>
 
 <%@ include file="../../footer.jsp" %>

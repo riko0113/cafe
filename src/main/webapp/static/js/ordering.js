@@ -2,6 +2,11 @@
 let cart = {};
 let currentTaxRate = 1.08;
 
+function saveToStorage() {
+    localStorage.setItem('cafeCart', JSON.stringify(cart));
+    localStorage.setItem('taxRate', currentTaxRate.toString());
+}
+
 // 税率切り替え関数
 function switchTaxType(element, taxRate) {
     currentTaxRate = taxRate;
@@ -21,6 +26,8 @@ function switchTaxType(element, taxRate) {
         // 画面の数値を書き換え
         priceSpan.innerText = newExcludingPrice;
     });
+    
+    saveToStorage();
 
     // 3. カート（注文リスト）の計算もリフレッシュ
     renderCart();

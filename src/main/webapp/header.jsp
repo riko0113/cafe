@@ -10,11 +10,11 @@
 <body>
 <c:choose>
 	<c:when test= "${not empty sessionScope.account}">
-		🌷${sessionScope.account.user_name}🌷
+		☕${sessionScope.account.userName}🍰<a href="../logout/logout.jsp">ログアウト</a>🍹
 	</c:when>
 <c:otherwise>
 	<a href="../login/login.jsp">ログイン</a>
 	</c:otherwise>
 </c:choose>
-<a href="../logout/logout.jsp">ログアウト</a>🌷
+
 

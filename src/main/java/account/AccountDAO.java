@@ -67,14 +67,37 @@ public class AccountDAO extends DAO {
 		return line;
     }
     
-    public int update() throws Exception{
+    public int update(String account_id, String user_name, String password) throws Exception{
     	
     	int line = 0;
     	
     	Connection con = getConnection();
     	
-    	PreparedStatement st=con.prepareStatement("update account set is_deleted = true");
+    	PreparedStatement st=con.prepareStatement("update account set "
+    			+ "user_name = ?, password = ? where account_id = ?");
     	
+    	st.setString(1, user_name);
+		st.setString(2, password);
+		st.setString(3, account_id);
+		
+		line = st.executeUpdate();
+		
+		
+		st.close();
+		con.close();
+		
+		return line;
+    }
+    
+    public int delete(String account_id) throws Exception{
+    	
+    	int line = 0;
+    	
+    	Connection con = getConnection();
+    	
+    	PreparedStatement st=con.prepareStatement("update account set is_deleted = true where account_id = ?");
+
+		st.setString(1, account_id);
 		
 		line = st.executeUpdate();
 		

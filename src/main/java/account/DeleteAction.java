@@ -15,24 +15,19 @@ public class DeleteAction extends Action {
 
         // セッションを取得
         HttpSession session = request.getSession();
-
-        // セッションにアカウントがあるか確認する
-        if (session.getAttribute("account") == null) {
-            // セッションにないので、すでにログアウト済み
-            return "/account/logout/logout-error.jsp";
-        }
+        
+        String account_id = request.getParameter("account_id");
 
         AccountDAO dao = new AccountDAO();
-        int line = dao.update();
+        int line = dao.delete(account_id);
 
         if (line > 0) {
-            // データベースの更新も成功
         	session.removeAttribute("account");
-            return "/account/logout/success.jsp";
+            return "/account/manage/delete-success.jsp";
             
         } else {
             // データベースの更新が0件だった（何らかの理由で更新に失敗）
-            return "/account/logout/logout-error2.jsp"; 
+            return "/account/manage/delete-error.jsp"; 
         }
     }
 }
