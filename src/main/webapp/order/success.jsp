@@ -104,7 +104,7 @@ body { background-color: #f8f9fa; }
 
     <!-- 注文画面へ戻るボタン -->
     <div class="mt-4">
-        <button type="button" class="btn btn-dark btn-lg rounded-3 w-100 py-3 fw-bold shadow-sm" onclick="location.href='/cafe/order/OrderBasic.action'">
+        <button type="button" class="btn btn-dark btn-lg rounded-3 w-100 py-3 fw-bold shadow-sm" onclick="location.href='${pageContext.request.contextPath}/order/OrderBasic.action'">
             次の注文を入力する
         </button>
     </div>

@@ -105,7 +105,7 @@ body { background-color: #f8f9fa; }
         注文を確定する
     </button>
 
-    <form id="hiddenOrderForm" action="/cafe/order/OrderCheck.action" method="POST">
+    <form id="hiddenOrderForm" action="${pageContext.request.contextPath}/order/OrderCheck.action" method="POST">
         <input type="hidden" name="cartData" id="cartDataInput">
     </form>
 

@@ -16,7 +16,7 @@ body { background-color: #f8f9fa; }
     <!-- タイトル＆注文画面に戻るボタン -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fs-4 fw-bold text-dark m-0">注文履歴</h2>
-        <button type="button" class="btn btn-outline-secondary btn-sm rounded-3 px-3 fw-bold" onclick="location.href='/cafe/order/Ordering.action'">
+        <button type="button" class="btn btn-outline-secondary btn-sm rounded-3 px-3 fw-bold" onclick="location.href='${pageContext.request.contextPath}/order/Ordering.action'">
             ← 注文画面に戻る
         </button>
     </div>

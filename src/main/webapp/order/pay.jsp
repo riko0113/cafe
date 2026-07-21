@@ -72,7 +72,7 @@ body { background-color: #f8f9fa; }
         支払いを確定する
     </button>
 
-    <form id="finalPaymentForm" action="/cafe/order/OrderConfirm.action" method="POST">
+    <form id="finalPaymentForm" action="${pageContext.request.contextPath}/order/OrderConfirm.action" method="POST">
         <input type="hidden" name="paymentMethod" id="paymentMethodInput">   
         <input type="hidden" name="totalExcludingTax" id="exTaxInput">       
         <input type="hidden" name="totalIncludingTax" id="inTaxInput">       
