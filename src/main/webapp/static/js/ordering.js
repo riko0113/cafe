@@ -2,9 +2,10 @@
 let cart = {};
 let currentTaxRate = 1.08;
 
+// ストレージへ保存（sessionStorageを使用）
 function saveToStorage() {
-    localStorage.setItem('cafeCart', JSON.stringify(cart));
-    localStorage.setItem('taxRate', currentTaxRate.toString());
+    sessionStorage.setItem('cafeCart', JSON.stringify(cart));
+    sessionStorage.setItem('taxRate', currentTaxRate.toString());
 }
 
 // 税率切り替え関数
@@ -19,32 +20,24 @@ function switchTaxType(element, taxRate) {
 
     // 2. メニューに並んでいる商品の価格表示をすべて新税率で書き換える
     document.querySelectorAll('.product-price').forEach(priceSpan => {
-        // HTMLに隠しておいた税抜価格を読み出す
         const rawPrice = Number(priceSpan.getAttribute('data-raw-price'));
-        // 新しい税率で税込価格を計算（四捨五入）
         const newExcludingPrice = Math.round(rawPrice * currentTaxRate);
-        // 画面の数値を書き換え
         priceSpan.innerText = newExcludingPrice;
     });
     
-    saveToStorage();
-
-    // 3. カート（注文リスト）の計算もリフレッシュ
+    // 3. カート（注文リスト）の計算もリフレッシュ＆保存
     renderCart();
 }
 
 // 【機能1】ジャンルの切り替え
 function switchGenre(genreId) {
-    // すべてのタブの赤文字（active）を解除
     document.querySelectorAll('.tab').forEach(tab => {
         tab.classList.remove('active');
     });
     
-    // クリックされたジャンル文字を赤文字にする
     const clickedTab = document.querySelector(`.tab[data-genre-id="${genreId}"]`);
     if (clickedTab) clickedTab.classList.add('active');
 
-    // ジャンルIDが一致する商品だけを表示する
     document.querySelectorAll('.product-card').forEach(card => {
         if (card.getAttribute('data-genre-id') === genreId) {
             card.classList.add('active');
@@ -56,18 +49,18 @@ function switchGenre(genreId) {
 
 // 【機能2】商品ボタンを押したとき（カート追加）
 function addToCart(productId, productName, price) {
-    const finalPrice = Math.round(price); // 小数点以下を四捨五入
+    const finalPrice = Math.round(price);
 
     if (cart[productId]) {
-        cart[productId].quantity += 1; // 既にあったら個数を +1
+        cart[productId].quantity += 1;
     } else {
-        cart[productId] = {            // 新しく追加
+        cart[productId] = {
             name: productName,
             price: finalPrice,
             quantity: 1
         };
     }
-    renderCart(); // 画面を更新
+    renderCart();
 }
 
 // 【機能3】「ー」「＋」ボタンを押したとき（数量変更）
@@ -76,11 +69,10 @@ function changeQuantity(productId, amount) {
 
     cart[productId].quantity += amount;
 
-    // 個数が0個になったらリストから消す
     if (cart[productId].quantity <= 0) {
         delete cart[productId];
     }
-    renderCart(); // 画面を更新
+    renderCart();
 }
 
 // 【機能4】注文リスト（カート）の見た目を最新にする
@@ -95,9 +87,10 @@ function renderCart() {
     const keys = Object.keys(cart);
     
     if (keys.length === 0) {
-        cartList.innerHTML = '<p id="emptyMessage">商品が選択されていません</p>';
+        cartList.innerHTML = '<p id="emptyMessage" class="text-muted text-center m-0 small">商品が選択されていません</p>';
         excludingTaxPriceSpan.innerText = '0';
         includingTaxPriceSpan.innerText = '0';
+        saveToStorage();
         return;
     }
 
@@ -109,12 +102,15 @@ function renderCart() {
         const itemTotalIncludingTax = Math.round(itemTotalExcludingTax * currentTaxRate);
 
         const itemDiv = document.createElement('div');
+        itemDiv.className = 'd-flex align-items-center justify-content-between mb-2 p-2 border-bottom';
         itemDiv.innerHTML = `
             <span>${item.name}</span>
-            <button onclick="changeQuantity('${productId}', -1)">ー</button>
-            <span> ${item.quantity} 個 </span>
-            <button onclick="changeQuantity('${productId}', 1)">＋</button>
-            <span>${itemTotalIncludingTax}円</span>
+            <div class="d-flex align-items-center gap-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="changeQuantity('${productId}', -1)">ー</button>
+                <span> ${item.quantity} 個 </span>
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="changeQuantity('${productId}', 1)">＋</button>
+                <span class="fw-bold ms-2">${itemTotalIncludingTax}円</span>
+            </div>
         `;
         cartList.appendChild(itemDiv);
     });
@@ -123,6 +119,8 @@ function renderCart() {
 
     excludingTaxPriceSpan.innerText = totalExcludingTax;
     includingTaxPriceSpan.innerText = totalIncludingTax;
+
+    saveToStorage();
 }
 
 function submitOrder() {
@@ -148,8 +146,38 @@ function submitOrder() {
     document.getElementById('hiddenOrderForm').submit();
 }
 
+// 画面読み込み時の復元処理（sessionStorage から読み出すように統一）
 window.onload = function() {
-    const activeTab = document.querySelector('.tab.active');
+    // 1. 税率の復元
+    const savedTaxRate = sessionStorage.getItem('taxRate');
+    if (savedTaxRate) {
+        currentTaxRate = parseFloat(savedTaxRate);
+        const targetBtn = Array.from(document.querySelectorAll('.tax-type-btn')).find(btn => {
+            return (currentTaxRate === 1.08 && btn.innerText.includes('持ち帰り')) ||
+                   (currentTaxRate === 1.10 && btn.innerText.includes('イートイン'));
+        });
+        if (targetBtn) {
+            document.querySelectorAll('.tax-type-btn').forEach(btn => btn.classList.remove('active'));
+            targetBtn.classList.add('active');
+        }
+    }
+
+    // 2. カートデータの復元
+    const savedCart = sessionStorage.getItem('cafeCart');
+    if (savedCart) {
+        try {
+            cart = JSON.parse(savedCart);
+        } catch (e) {
+            console.error('カートの読み込みに失敗しました', e);
+            cart = {};
+        }
+    }
+
+    // 3. カートのUIを描画
+    renderCart();
+
+    // 4. 最初（または現在アクティブ）のジャンルタブを開く
+    const activeTab = document.querySelector('.tab.active') || document.querySelector('.tab');
     if (activeTab) {
         switchGenre(activeTab.getAttribute('data-genre-id'));
     }
