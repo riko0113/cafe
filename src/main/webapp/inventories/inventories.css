@@ -1,0 +1,399 @@
+@charset "UTF-8";
+
+.inventory-page {
+    min-height: 100vh;
+    color: #212529;
+}
+
+.inventory-page .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.inventory-page .page-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    color: #495057;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.inventory-page .page-title i {
+    color: #0d6efd;
+}
+
+.inventory-page .page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.inventory-page .page-link-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 8px 14px;
+    border: 1px solid #6c757d;
+    border-radius: 8px;
+    background: #fff;
+    color: #495057;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.inventory-page .page-link-button:hover {
+    border-color: #495057;
+    background: #495057;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.inventory-page .page-link-button.primary {
+    border-color: #0d6efd;
+    background: #0d6efd;
+    color: #fff;
+}
+
+.inventory-page .page-link-button.primary:hover {
+    border-color: #0b5ed7;
+    background: #0b5ed7;
+}
+
+.inventory-page .content-card {
+    margin-bottom: 24px;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    overflow: hidden;
+}
+
+.inventory-page .card-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e9ecef;
+    background: #fff;
+}
+
+.inventory-page .card-heading h2 {
+    margin: 0;
+    color: #495057;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.inventory-page .card-body-area {
+    padding: 20px;
+}
+
+.inventory-page .count-text {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.inventory-page #displayCount {
+    color: #0d6efd;
+    font-weight: 700;
+}
+
+.inventory-page .table-scroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.inventory-page .zaiko,
+.inventory-page .touroku,
+.inventory-page .genre-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+.inventory-page .zaiko th,
+.inventory-page .zaiko td,
+.inventory-page .touroku th,
+.inventory-page .touroku td,
+.inventory-page .genre-table th,
+.inventory-page .genre-table td {
+    padding: 12px 10px;
+    border-right: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
+
+.inventory-page .zaiko th:last-child,
+.inventory-page .zaiko td:last-child,
+.inventory-page .touroku th:last-child,
+.inventory-page .touroku td:last-child,
+.inventory-page .genre-table th:last-child,
+.inventory-page .genre-table td:last-child {
+    border-right: none;
+}
+
+.inventory-page .zaiko tbody tr:last-child td,
+.inventory-page .touroku tbody tr:last-child td,
+.inventory-page .genre-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.inventory-page .zaiko thead th,
+.inventory-page .touroku th,
+.inventory-page .genre-table thead th {
+    background: #f8f9fa;
+    color: #495057;
+    font-weight: 700;
+}
+
+.inventory-page .zaiko tbody tr,
+.inventory-page .genre-table tbody tr {
+    transition: background-color 0.15s;
+}
+
+.inventory-page .zaiko tbody tr:hover,
+.inventory-page .genre-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+.inventory-page .zaiko th input.filter {
+    width: 100%;
+    min-width: 72px;
+    padding: 8px 6px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background: #fff;
+    color: #212529;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: center;
+    outline: none;
+}
+
+.inventory-page .zaiko th input.filter:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+.inventory-page .zaiko th:nth-child(1) { width: 8%; }
+.inventory-page .zaiko th:nth-child(2) { width: 18%; }
+.inventory-page .zaiko th:nth-child(3) { width: 14%; }
+.inventory-page .zaiko th:nth-child(4) { width: 10%; }
+.inventory-page .zaiko th:nth-child(5) { width: 13%; }
+.inventory-page .zaiko th:nth-child(6) { width: 15%; }
+.inventory-page .zaiko th:nth-child(7) { width: 14%; }
+.inventory-page .zaiko th:nth-child(8) { width: 8%; }
+
+.inventory-page .form-table input,
+.inventory-page .form-table select,
+.inventory-page .edit-input {
+    width: 100%;
+    min-height: 40px;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 7px;
+    background: #fff;
+    color: #212529;
+    font-size: 0.9rem;
+    text-align: center;
+    outline: none;
+}
+
+.inventory-page .form-table input:focus,
+.inventory-page .form-table select:focus,
+.inventory-page .edit-input:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+.inventory-page .form-table input::placeholder,
+.inventory-page .filter::placeholder {
+    color: #adb5bd;
+}
+
+.inventory-page .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.inventory-page .action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-height: 36px;
+    padding: 7px 14px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.inventory-page .action-button:hover {
+    transform: translateY(-1px);
+}
+
+.inventory-page .action-button.edit {
+    border-color: #0d6efd;
+    background: #fff;
+    color: #0d6efd;
+}
+
+.inventory-page .action-button.edit:hover {
+    background: #0d6efd;
+    color: #fff;
+}
+
+.inventory-page .action-button.save,
+.inventory-page .action-button.register {
+    border-color: #198754;
+    background: #198754;
+    color: #fff;
+}
+
+.inventory-page .action-button.save:hover,
+.inventory-page .action-button.register:hover {
+    border-color: #157347;
+    background: #157347;
+}
+
+.inventory-page .action-button.delete {
+    border-color: #dc3545;
+    background: #fff;
+    color: #dc3545;
+}
+
+.inventory-page .action-button.delete:hover {
+    background: #dc3545;
+    color: #fff;
+}
+
+.inventory-page .operation {
+    white-space: nowrap;
+}
+
+.inventory-page .operation .edit-area {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+}
+
+.inventory-page .edit-area,
+.inventory-page .edit-input {
+    display: none;
+}
+
+.inventory-page .inline-form {
+    display: inline;
+}
+
+.inventory-page .status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.inventory-page .status-badge.normal {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.inventory-page .status-badge.shortage {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.inventory-page .sub-link-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+}
+
+.inventory-page .helper-text {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+.inventory-page .narrow-card {
+    max-width: 760px;
+}
+
+.inventory-page .medium-card {
+    max-width: 980px;
+}
+
+.inventory-page .wide-card {
+    width: 100%;
+}
+
+@media (max-width: 991.98px) {
+    .inventory-page .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .inventory-page .page-actions {
+        justify-content: flex-start;
+    }
+
+    .inventory-page .zaiko,
+    .inventory-page .touroku,
+    .inventory-page .genre-table {
+        min-width: 760px;
+    }
+
+    .inventory-page .narrow-card,
+    .inventory-page .medium-card {
+        max-width: none;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .inventory-page {
+        padding: 16px !important;
+    }
+
+    .inventory-page .page-title {
+        font-size: 1.4rem;
+    }
+
+    .inventory-page .page-actions,
+    .inventory-page .page-link-button {
+        width: 100%;
+    }
+
+    .inventory-page .card-heading,
+    .inventory-page .card-body-area {
+        padding: 14px;
+    }
+}
