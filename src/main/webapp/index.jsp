@@ -11,6 +11,6 @@
 <a href="#">在庫管理📦</a><br>
 <a href="#">商品管理🥪</a><br>
 <a href="${pageContext.request.contextPath}/sales/sales_menu.jsp">売上管理💰</a><br>
-<a href="/cafe/account/manage/edit.jsp">アカウント管理💬</a>
+<a href="${pageContext.request.contextPath}/account/manage/edit.jsp">アカウント管理💬</a>
 
 <%@ include file="./footer.jsp" %>
