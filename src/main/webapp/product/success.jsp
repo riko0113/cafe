@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>登録完了</title>
+<link rel="stylesheet" href="style3.css">
 </head>
 <body>
   <h1>データを登録しました</h1>
