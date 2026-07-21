@@ -12,11 +12,13 @@ function saveToStorage() {
 function switchTaxType(element, taxRate) {
     currentTaxRate = taxRate;
     
-    // 1. 税率ボタンの見た目を切り替える
+    // 1. 税率ボタンの見た目を切り替える（一旦すべて未選択にし、押されたものだけ黒くする）
     document.querySelectorAll('.tax-type-btn').forEach(btn => {
-        btn.classList.remove('active');
+        btn.classList.remove('btn-dark');
+        btn.classList.add('btn-outline-secondary');
     });
-    element.classList.add('active');
+    element.classList.remove('btn-outline-secondary');
+    element.classList.add('btn-dark');
 
     // 2. メニューに並んでいる商品の価格表示をすべて新税率で書き換える
     document.querySelectorAll('.product-price').forEach(priceSpan => {
@@ -152,15 +154,28 @@ window.onload = function() {
     const savedTaxRate = sessionStorage.getItem('taxRate');
     if (savedTaxRate) {
         currentTaxRate = parseFloat(savedTaxRate);
-        const targetBtn = Array.from(document.querySelectorAll('.tax-type-btn')).find(btn => {
-            return (currentTaxRate === 1.08 && btn.innerText.includes('持ち帰り')) ||
-                   (currentTaxRate === 1.10 && btn.innerText.includes('イートイン'));
-        });
-        if (targetBtn) {
-            document.querySelectorAll('.tax-type-btn').forEach(btn => btn.classList.remove('active'));
-            targetBtn.classList.add('active');
-        }
     }
+
+    // 現在の税率に合わせてボタンの見た目を初期化（黒塗り / 枠線）
+    document.querySelectorAll('.tax-type-btn').forEach(btn => {
+        const isTakeoutBtn = btn.innerText.includes('持ち帰り') && currentTaxRate === 1.08;
+        const isEatInBtn = btn.innerText.includes('イートイン') && currentTaxRate === 1.10;
+
+        if (isTakeoutBtn || isEatInBtn) {
+            btn.classList.remove('btn-outline-secondary');
+            btn.classList.add('btn-dark');
+        } else {
+            btn.classList.remove('btn-dark');
+            btn.classList.add('btn-outline-secondary');
+        }
+    });
+
+    // メニューの価格表示も選択中税率に合わせて初期表示
+    document.querySelectorAll('.product-price').forEach(priceSpan => {
+        const rawPrice = Number(priceSpan.getAttribute('data-raw-price'));
+        const newExcludingPrice = Math.round(rawPrice * currentTaxRate);
+        priceSpan.innerText = newExcludingPrice;
+    });
 
     // 2. カートデータの復元
     const savedCart = sessionStorage.getItem('cafeCart');
