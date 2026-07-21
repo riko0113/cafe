@@ -22,16 +22,16 @@
                 <c:when test="${not empty sessionScope.account}">
                     <span class="me-3 small text-light">
                         <i class="bi bi-person-circle me-1 text-info"></i>
-                        ${sessionScope.account.user_name} 様
+                        ${sessionScope.account.userName} 様
                     </span>
-                    <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}account/logout/logout.jsp">
+                    <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/account/logout/logout.jsp">
                         <i class="bi bi-box-arrow-left me-1"></i>ログアウト
                     </a>
                 </c:when>
                 
                 <%-- ログインしていない場合 --%>
                 <c:otherwise>
-                    <a class="btn btn-sm btn-outline-light" href="${pageContext.request.contextPath}account/login/login.jsp">
+                    <a class="btn btn-sm btn-outline-light" href="${pageContext.request.contextPath}/account/login/login.jsp">
                         <i class="bi bi-box-arrow-in-right me-1"></i>ログイン
                     </a>
                 </c:otherwise>

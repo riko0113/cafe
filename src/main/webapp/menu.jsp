@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/system/order/order_list.jsp" class="sidebar-link">
+                        <a href="${pageContext.request.contextPath}/order/OrderBasic.action" class="sidebar-link">
                             <i class="bi bi-cart me-2"></i>注文
                         </a>
                     </li>
@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/sales/sales_menu.jsp" class="sidebar-link active">
+                        <a href="${pageContext.request.contextPath}/sales/sales_menu.jsp" class="sidebar-link">
                             <i class="bi bi-cash-stack me-2"></i>売上管理
                         </a>
                     </li>
