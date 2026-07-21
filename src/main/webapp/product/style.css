@@ -1,35 +1,37 @@
 @charset "UTF-8";
 
-body {
-	background-image: linear-gradient(to bottom, #81d4fa 0%, #81d4fa 50%, #e1f5fe 50%, #e1f5fe 100%);
-	background-attachment: fixed;
+main.col-md-9.col-lg-10 {
+ background-color: #f4f6f9 !important; 
+ padding: 40px !important;            
+ min-height: 100vh;                    
 }
 
-a {
-	font-size: 3rem;
-    text-align: center;
-	margin-top: 240px;
-	margin-bottom: 20px;
+main.col-md-9.col-lg-10 a {
+ display: inline-block;
+ padding: 12px 24px;
+ margin-right: 12px;
+ margin-bottom: 16px;
+ color: #2b6cb0 !important;          
+ background-color: #ffffff;          
+ border: 1px solid #e2e8f0;          
+ border-radius: 8px;                 
+ font-weight: 600;
+ text-decoration: none !important;   
+ box-shadow: 0 2px 4px rgba(0,0,0,0.04); 
+ transition: all 0.2s ease;          
 }
 
-.btn-register, .btn-views, .btn-seachs{
-	display: inline-block;
-	padding: 8px 16px;
-	text-decoration: none;
-	border-radius: 4px;
+main.col-md-9.col-lg-10 a:hover {
+ background-color: #ebf8ff;          
+ color: #2b6cb0 !important;
+ border-color: #bee3f8;
+ transform: translateY(-1px);        
+ box-shadow: 0 4px 6px rgba(0,0,0,0.08);
 }
-
-.btn-register{
-	color: black;
-	margin-left: 300px;
-	margin-right: 20px;
-}
-
-.btn-views{
-	color: black;
-	margin-right: 20px;
-}
-
-.btn-seachs{
-	color: black;
+/* 区切り線（hrタグ）のスタイルも今風に調整 */
+main.col-md-9.col-lg-10 hr {
+ border: 0;
+ border-top: 1px solid #e2e8f0;
+ margin-top: 24px;
+ margin-bottom: 24px;
 }
