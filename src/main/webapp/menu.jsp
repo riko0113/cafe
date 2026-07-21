@@ -32,7 +32,7 @@
 
                 <ul class="nav flex-column gap-2">
                     <li class="nav-item">
-                        <a href="/system/product/product_list.jsp" class="sidebar-link">
+                        <a href="${pageContext.request.contextPath}/product/main.jsp" class="sidebar-link">
                             <i class="bi bi-box-seam me-2"></i>商品管理
                         </a>
                     </li>
