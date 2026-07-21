@@ -7,6 +7,6 @@
 <p>ログアウトを行いますか？</p>
             
 <a href="../../index.jsp">いいえ</a>
-<a href="/cafe/account/Logout.action">はい</a>
+<a href="${pageContext.request.contextPath}/account/Logout.action">はい</a>
 
 <%@ include file="../../footer.jsp" %>

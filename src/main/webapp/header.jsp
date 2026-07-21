@@ -22,7 +22,7 @@
                 <c:when test="${not empty sessionScope.account}">
                     <span class="me-3 small text-light">
                         <i class="bi bi-person-circle me-1 text-info"></i>
-                        ${sessionScope.account.user_name} 様
+                        ${sessionScope.account.userName} 様
                     </span>
                     <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}account/logout/logout.jsp">
                         <i class="bi bi-box-arrow-left me-1"></i>ログアウト

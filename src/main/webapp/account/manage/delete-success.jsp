@@ -4,6 +4,6 @@
 
 <h3>削除が完了しました</h3>
 
-<a href="/cafe/account/login/login.jsp">引き続きご利用でしたらログインを行ってください</a>
+<a href="${pageContext.request.contextPath}/account/login/login.jsp">引き続きご利用でしたらログインを行ってください</a>
 
 <%@ include file="../../footer.jsp" %>

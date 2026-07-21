@@ -19,15 +19,13 @@ public class InsertAction extends Action {
         String account_id = request.getParameter("account_id");
         String user_name = request.getParameter("user_name");
         String password = request.getParameter("password");
-
-        AccountDAO dao = new AccountDAO();
-        int line = dao.insert(account_id, user_name, password);
-
-        if (line>0) {
-
-            return "/account/login/success.jsp";
+        try {
+        	AccountDAO dao = new AccountDAO();
+        	dao.insert(account_id, user_name, password);
+        } catch (Exception e) {
+        	return "/account/login/insert-error.jsp";
         }
 
-        return "/account/login/inser-error.jsp";
+        return "/account/login/success.jsp";
     }
 }

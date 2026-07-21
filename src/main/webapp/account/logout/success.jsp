@@ -4,6 +4,6 @@
 
 <h3>✓ ログアウトが完了しました</h3>
 
-<a href="../login/login.jsp" class="btn-create">ログイン画面</a>
+<a href="${pageContext.request.contextPath}/account/login/login.jsp" class="btn-create">ログイン画面</a>
 
 <%@ include file="../../footer.jsp" %>
