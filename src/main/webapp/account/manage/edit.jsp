@@ -3,7 +3,7 @@
 <%@ include file="../../head.jsp" %>
 
 <h3>編集:ユーザーネームとパスワードの変更ができます</h3>
-<form action="/cafe/account/Update.action" method="post">
+<form action="${pageContext.request.contextPath}/account/Update.action" method="post">
     <input type="hidden" name="user_id" value="${sessionScope.account.accountId}">
      
 	<label for="id">ユーザーネーム</label>

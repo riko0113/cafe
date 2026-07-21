@@ -5,6 +5,6 @@
 <h3>⚠️エラー</h3>
 
 <p>既にログアウトされています</p>
- <a href="/cafe/account/login/login.jsp">ログイン画面</a>
+ <a href="${pageContext.request.contextPath}/account/login/login.jsp">ログイン画面</a>
  
 <%@ include file="../../footer.jsp" %>

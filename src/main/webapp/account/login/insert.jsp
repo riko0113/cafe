@@ -3,7 +3,7 @@
 <%@ include file="../../head.jsp" %>
 
 <h3>新規登録</h3>
-<form action="/cafe/account/Insert.action" method="post">
+<form action="${pageContext.request.contextPath}/account/Insert.action" method="post">
 
 	<label for="id">アカウントID</label>
 	<input type="text" name="account_id" placeholder="数字とｱﾙﾌｧﾍﾞｯﾄを使用" required><br>

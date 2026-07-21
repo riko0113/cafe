@@ -19,15 +19,12 @@ public class UpdateAction extends Action {
         String account_id = request.getParameter("account_id");
         String user_name = request.getParameter("user_name");
         String password = request.getParameter("password");
-
+        try {
         AccountDAO dao = new AccountDAO();
-        int line = dao.update(account_id, user_name, password);
-
-        if (line>0) {
-
-            return "/account/manage/edit-success.jsp";
+        dao.update(account_id, user_name, password);
+        }catch (Exception e) {
+        	return "/account/manage/edit-error.jsp";
         }
-
-        return "/account/manage/edit-error.jsp";
+        return "/account/manage/edit-success.jsp";
     }
 }

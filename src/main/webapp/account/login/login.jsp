@@ -4,7 +4,7 @@
          
 <h3>ログイン</h3>
 
-<form action="/cafe/account/Login.action" method="post">
+<form action="${pageContext.request.contextPath}/account/Login.action" method="post">
     <label for="id">アカウントID</label>
     <input type="text" id="id" name="account_id" placeholder="例 admin1234" required><br>
 
