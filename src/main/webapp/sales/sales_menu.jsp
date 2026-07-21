@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.Date, java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="../../header.jsp" %>
+<%@ include file="../header.jsp" %>
 <style>
         /* メインカードのホバーエフェクト */
         .menu-card {
@@ -137,4 +137,4 @@
 
         </div>
     </div>
-<%@ include file="../../footer.jsp" %>
+<%@ include file="../footer.jsp" %>
