@@ -97,7 +97,11 @@
     display: inline;
 }
 </style>
+<div class="container-fluid">
+    <div class="row">
+        <%@ include file="../../menu.jsp" %>
 
+        <main class="col-md-9 col-lg-10 p-4 bg-light">
 <div class="page-header">
     <h1>ジャンル編集</h1>
     <div>
@@ -172,7 +176,7 @@
         </tbody>
     </table>
 </div>
-
+</div>
 <script>
 function editGenre(button) {
     const row = button.closest("tr");

@@ -81,7 +81,11 @@
     font-size: 18px;
 }
 </style>
+<div class="container-fluid">
+    <div class="row">
+        <%@ include file="../../menu.jsp" %>
 
+        <main class="col-md-9 col-lg-10 p-4 bg-light">
 <div class="page-header">
     <h1>新規品登録</h1>
     <a href="${pageContext.request.contextPath}/inventory">在庫一覧</a>
@@ -124,4 +128,5 @@
             <button type="submit">登録</button>
         </div>
     </form>
+</div>
 </div>

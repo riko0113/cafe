@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/header.jsp" %>
+<div class="container-fluid">
+    <div class="row">
+        <%@ include file="../../menu.jsp" %>
 
+        <main class="col-md-9 col-lg-10 p-4 bg-light">
 <style>
 .page-header {
     width: 100%;
@@ -98,4 +102,5 @@
             <button type="submit">登録</button>
         </div>
     </form>
+</div>
 </div>
