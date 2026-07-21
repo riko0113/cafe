@@ -3,12 +3,16 @@
 
 <style>
 /* 最小限のカスタムスタイル */
-body { background-color: #f8f9fa; }
+
 
 /* 画面中央に配置 */
 .login-container {
     max-width: 450px;
     margin: 40px auto;
+}
+body{
+    background-image: url('cafe.png');
+    background-size: cover;
 }
 </style>
 
