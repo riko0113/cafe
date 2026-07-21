@@ -68,7 +68,12 @@
                                             </c:forEach>
                                         </select>
                                     </td>
-                                    <td>${item.quantity}</td>
+                                    <td>
+                                        <span class="view-area">${item.quantity}</span>
+                                        <input class="edit-input" type="number" name="quantity"
+                                               value="${item.quantity}" min="0"
+                                               form="updateForm${item.itemId}" required>
+                                    </td>
                                     <td>
                                         <span class="view-area">${item.standardStock}</span>
                                         <input class="edit-input" type="number" name="standardStock"
