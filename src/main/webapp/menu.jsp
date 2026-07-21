@@ -42,7 +42,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/system/stock/stock_list.jsp" class="sidebar-link">
+                        <a href="${pageContext.request.contextPath}/inventory" class="sidebar-link">
                             <i class="bi bi-boxes me-2"></i>在庫管理
                         </a>
                     </li>
