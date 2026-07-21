@@ -2,10 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../../head.jsp" %>
 
-<h3>登録が完了しました</h3>
-            
-<p>ログインを行ってください</p>
+<h3>編集が完了しました</h3>
 
-<a href="/cafe/account/login/login.jsp">ログイン画面</a>
+<a href="../../index.jsp">ホーム画面</a>
 
 <%@ include file="../../footer.jsp" %>

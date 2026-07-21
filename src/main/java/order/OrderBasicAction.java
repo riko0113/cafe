@@ -21,7 +21,7 @@ public class OrderBasicAction extends Action {
 	    // DAOを使ってDB
 	    ProductDAO dao = new ProductDAO();
 	            
-	    List<ProductBean> product = dao.all();
+	    List<Product> product = dao.all();
 	            
 	    request.setAttribute("products", product);
 	    

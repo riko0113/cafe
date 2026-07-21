@@ -20,3 +20,17 @@ form {
 	color: white;
 	font-size: 3rem;
 }
+
+input[type="text"] {
+	width: 350px;
+	padding: 8px 12px;
+	font-size: 16px;
+	position: relative;
+	top: -6px;
+}
+
+input[type="submit"] {
+	padding: 10px 30px;
+	font-size: 3rem;
+	cursor: pointer;
+}

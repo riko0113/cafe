@@ -38,5 +38,6 @@
     <input type="hidden" name="isTakeOut" id="isTakeOutInput">         
 </form>
 
+<a href="/cafe/order/ordering.jsp">戻る</a>
 <script src="../static/js/pay.js"></script>
 <%@ include file="../footer.jsp" %>

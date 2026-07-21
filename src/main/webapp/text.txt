@@ -1,0 +1,19 @@
+header.jsp及び、menu.jspを利用するために、以下を挿入。
+
+<%@ include file="../../header.jsp" %>
+
+<div class="container-fluid">
+    <div class="row">
+        <%@ include file="../../menu.jsp" %>
+
+        <main class="col-md-9 col-lg-10 p-4 bg-light">
+        <!-- 以下に各々の制作したコンテンツを置くこと -->
+        
+        
+
+また、menu.jspの各管理機能のURLは、各自で設定すること。
+各自で設定するURLの部分には、${pageContext.request.contextPath}を利用してください。
+例：webapp/sales/sales_menu.jspへの遷移を行う場合
+<a href="${pageContext.request.contextPath}/sales/sales_menu.jsp" class="sidebar-link active">
+ 売上管理
+</a>

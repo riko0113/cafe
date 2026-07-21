@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ include file="../header.jsp" %>
 
 <style>
@@ -17,6 +18,10 @@
     display: block; 
 }
 </style>
+
+<button type="button" onclick="location.href='../index.jsp'">
+    ホーム画面
+</button>
 
 <button type="button" onclick="location.href='/cafe/order/OrderHistory.action'">
     注文履歴を見る
@@ -52,7 +57,7 @@
             <button onclick="addToCart('${product.productId}', '${product.productName}', ${product.price})">
                 <c:out value="${product.productName}" />
             </button>
-            ￥<span class="product-price" data-raw-price="${product.price}"><c:out value="${product.price * 1.08}" /></span>
+            ￥<span class="product-price" data-raw-price="${product.price}"><fmt:formatNumber value="${product.price * 1.08}" pattern="#" /></span>
         </div>
     </c:forEach>
 </div>

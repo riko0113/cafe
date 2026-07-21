@@ -1,59 +1,99 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date, java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>日次商品別売上合計確認</title>
-</head>
-<body>
+<%@ include file="../header.jsp" %>
 
-<h1>${targetDate}日商品別売上合計確認画面</h1>
+<div class="container-fluid">
+    <div class="row">
+        <%@ include file="../menu.jsp" %>
 
-<form action="${pageContext.request.contextPath}/sales/servlet/DailyProductSalesSummary.action" method="post">
-    <h3>集計種別</h3>
-    <div id="dailyArea">
-        <label>対象日</label>
-        <input type="date" name="targetDate">
+        <main class="col-md-9 col-lg-10 p-4 bg-light">
+            
+            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+                <h2 class="h3 mb-0 text-secondary">
+                    <i class="bi bi-calendar-event me-2"></i>
+                    <c:choose>
+                        <c:when test="${not empty targetDate}">
+                            ${targetDate} 日商品別売上合計
+                        </c:when>
+                        <c:otherwise>
+                            日次商品別売上合計確認
+                        </c:otherwise>
+                    </c:choose>
+                </h2>
+            </div>
+
+            <div class="card mb-4 shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title h6 fw-bold mb-3">
+                        <i class="bi bi-search me-1"></i>集計日の指定
+                    </h5>
+                    
+                    <form action="${pageContext.request.contextPath}/sales/servlet/DailyProductSalesSummary.action" method="post" class="row g-3 align-items-end">
+                        <div class="col-auto">
+                            <label class="form-label small text-muted">対象日</label>
+                            <input type="date" name="targetDate" class="form-control" value="${targetDate}">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="bi bi-search me-1"></i>検索
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title h6 fw-bold mb-3">
+                        <i class="bi bi-list-stars me-1"></i>商品売上一覧
+                    </h5>
+
+                    <c:choose>
+                        <%-- データが空の場合 --%>
+                        <c:when test="${empty dailysales}">
+                            <div class="alert alert-warning mb-0" role="alert">
+                                <i class="bi bi-exclamation-triangle me-2"></i>対象日の売上データがまだ登録されていないか、日付が選択されていません。
+                            </div>
+                        </c:when>
+                        
+                        <%-- データが存在する場合 --%>
+                        <c:otherwise>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle mb-0">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>商品ID</th>
+                                            <th>商品名</th>
+                                            <th>ジャンル</th>
+                                            <th class="text-end">売上合計数</th>
+                                            <th class="text-end">売上合計金額</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="ds" items="${dailysales}">
+                                            <tr>
+                                                <td class="fw-bold">${ds.product_id}</td>
+                                                <td>${ds.product_name}</td>
+                                                <td>
+                                                    <span class="badge bg-secondary-subtle text-secondary-emphasis">
+                                                        ${ds.genre_name}
+                                                    </span>
+                                                </td>
+                                                <td class="text-end fw-bold text-primary">${ds.total_quantity}</td>
+                                                <td class="text-end fw-bold text-success">${ds.total_amount} 円</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+
+        </main>
     </div>
-    <button type="submit" value="検索">検索</button>
-</form>
+</div>
 
-<hr>
-
-<h3 class="mb-3">商品売上一覧</h3>
-<table class="table table-striped table-bordered">
-	<thead class="table-dark">
-		<tr>
-        	<th>商品ID</th>
-        	<th>商品名</th>
-        	<th>ジャンル</th>
-        	<th>売上合計数</th>
-        	<th>売上合計金額</th>
-    	</tr>
-		<c:choose>
-			<c:when test="${empty dailysales}">
-				</thead>
-				</table>
-				<p>まだ売上が登録されていません</p>
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="ds" items="${dailysales}">
-					<tr>
-						<td>${ds.product_id}</td>
-						<td>${ds.product_name}</td>
-						<td>${ds.genre_name}</td>
-						<td>${ds.total_quantity}</td>
-						<td>${ds.total_amount}</td>
-					</tr>
-				</c:forEach>
-				</thead>
-				</table>
-			</c:otherwise>
-		</c:choose>
-
-</body>
-<script>
-</script>
-</html>
+<%@ include file="../footer.jsp" %>

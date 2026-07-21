@@ -29,5 +29,4 @@ public class ProfitManagementAction extends Action {
 		
 		return "/sales/profit_management.jsp";
 	}
-
 }

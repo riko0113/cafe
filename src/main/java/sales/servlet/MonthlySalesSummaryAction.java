@@ -26,7 +26,7 @@ public class MonthlySalesSummaryAction extends Action {
             e.printStackTrace();
             return "/sales/error.jsp";
         }
-		return "/sales/daily_sales_summary.jsp";
+		return "/sales/monthly_sales_summary.jsp";
 	}
 
 }
