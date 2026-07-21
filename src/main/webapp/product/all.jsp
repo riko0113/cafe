@@ -1,6 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../../header.jsp" %>
 
+<div class="container-fluid">
+    <div class="row">
+        <%@ include file="../../menu.jsp" %>
+
+        <main class="col-md-9 col-lg-10 p-4 bg-light">
 <h2>商品一覧</h2>
 <table border="1" style="border-collapse: collapse; width: 100%;">
 <tr style="background-color: #e3f2fd;">
@@ -29,3 +35,4 @@
 </tr>
 </c:forEach>
 </table>
+<%@ include file="../../footer.jsp" %>
