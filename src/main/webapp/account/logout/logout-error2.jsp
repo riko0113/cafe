@@ -6,6 +6,6 @@
 
 <p>ログアウトに失敗しました。</p>
 <p>再度ログアウトを行ってください</p>
- <a href="/cafe/index.jsp">ログイン画面</a>
+ <a href="${pageContext.request.contextPath}/index.jsp">ログイン画面</a>
  
 <%@ include file="../../header.jsp" %>

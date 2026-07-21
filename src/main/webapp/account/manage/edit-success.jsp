@@ -4,6 +4,6 @@
 
 <h3>編集が完了しました</h3>
 
-<a href="../../index.jsp">ホーム画面</a>
+<a href="${pageContext.request.contextPath}/index.jsp">ホーム画面</a>
 
 <%@ include file="../../footer.jsp" %>

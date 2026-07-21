@@ -6,6 +6,6 @@
             
 <p>ログインを行ってください</p>
 
-<a href="/cafe/account/login/login.jsp">ログイン画面</a>
+<a href="${pageContext.request.contextPath}/account/login/login.jsp">ログイン画面</a>
 
 <%@ include file="../../footer.jsp" %>
