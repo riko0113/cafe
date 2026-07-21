@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="./header.jsp" %>
 <div class="container-fluid">
-    <div class="row">
-        <%@ include file="./menu.jsp" %>
+<div class="row">
+<%@ include file="./menu.jsp" %>
 
-        <main class="col-md-9 col-lg-10 p-4 bg-light">
+<main class="col-md-9 col-lg-10 p-4 bg-light">
 
 <a href="/cafe/order/OrderBasic.action">注文📝</a><br>
 <a href="#">在庫管理📦</a><br>
