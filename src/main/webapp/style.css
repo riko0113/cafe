@@ -1,0 +1,34 @@
+main.col-md-9 {
+   background-image: linear-gradient(to bottom, #81d4fa 0%, #b3e5fc 100%) !important;
+   min-height: 100vh;
+}
+
+.btn-register, .btn-views, .btn-seachs {
+   display: inline-block !important;
+   padding: 10px 20px !important;     
+   text-decoration: none !important;  
+   border-radius: 6px !important;     
+   border: 1px solid #ccc !important; 
+   font-weight: bold !important;
+   font-size: 1.5rem !important;      
+   margin-top: 20px !important;       
+   margin-bottom: 20px !important;    
+}
+
+.btn-register {
+   color: #ffffff !important;            
+   background-color: #007bff !important;    
+   margin-left: 20px !important;        
+   margin-right: 15px !important;
+}
+
+.btn-views {
+   color: #ffffff !important;            
+   background-color: #28a745 !important;    
+   margin-right: 15px !important;
+}
+
+.btn-seachs {
+   color: #ffffff !important;            
+   background-color: #17a2b8 !important;    
+}
