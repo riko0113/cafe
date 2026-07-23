@@ -9,13 +9,32 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
+<style>
+.cafekannri {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.cafekannri:hover {
+    color: white;
+    text-decoration: none;
+}
+</style>
+
 <body>
 
-    <header class="navbar navbar-dark bg-dark px-3 sticky-top shadow-sm">
-        <span class="navbar-brand mb-0 h1">
-            <i class="bi bi-graph-up me-2"></i>カフェ管理システム
-        </span>
-        <div class="d-flex align-items-center text-white">
+<header class="navbar navbar-dark bg-dark px-3 sticky-top shadow-sm">
+    <a class="navbar-brand cafekannri"
+       href="${pageContext.request.contextPath}/index.jsp">
+
+        <i class="bi bi-graph-up me-2"></i>
+        <span>カフェ管理システム</span>
+
+    </a>
+
+    <div class="d-flex align-items-center text-white">
             
             <c:choose>
                 <%-- ログインしている場合 --%>
